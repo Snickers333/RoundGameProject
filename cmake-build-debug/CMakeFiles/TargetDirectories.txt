@@ -1,0 +1,3 @@
+C:/Users/bkkami/CLionProjects/RoundGameProject/cmake-build-debug/CMakeFiles/RoundGameProject.dir
+C:/Users/bkkami/CLionProjects/RoundGameProject/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/bkkami/CLionProjects/RoundGameProject/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/bkkami/CLionProjects/RoundGameProject/Creature.cpp
+Creature.h
+C:/Users/bkkami/CLionProjects/RoundGameProject/Creature.h
+
+C:/Users/bkkami/CLionProjects/RoundGameProject/Creature.h
+SpecialMove.h
+C:/Users/bkkami/CLionProjects/RoundGameProject/SpecialMove.h
+
+C:/Users/bkkami/CLionProjects/RoundGameProject/SpecialMove.cpp
+SpecialMove.h
+C:/Users/bkkami/CLionProjects/RoundGameProject/SpecialMove.h
+
+C:/Users/bkkami/CLionProjects/RoundGameProject/SpecialMove.h
+iostream
+-
+
+C:/Users/bkkami/CLionProjects/RoundGameProject/main.cpp
+iostream
+-
+
