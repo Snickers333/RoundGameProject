@@ -20,6 +20,7 @@ public:
     static Creature getCopyCreature(int index, const CreaturesList& v);
     static Creature &getCreature(int index, CreaturesList& v);
     static CreaturesList makeUserSelection(const CreaturesList& v);
+    void setDifficulty();
 };
 
 

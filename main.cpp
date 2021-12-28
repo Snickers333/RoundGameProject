@@ -3,14 +3,21 @@
 #include "Creature.h"
 #include "CreaturesList.h"
 #include "SpecialMove.h"
-const CreaturesList CREATURESLIST;
+CreaturesList CREATURESLIST;
 
 using namespace std;
 int main() {
     //checkIfToContinue();
-    cout<<"Welcome to the Game!"<<endl<<"List of available Creatures :"<<endl;
+    cout<<"Welcome to the Game!"<<endl<<"List of available Creatures :"<<endl<<endl;
+    cout<<CREATURESLIST;
     CreaturesList userList = CreaturesList::makeUserSelection(CREATURESLIST);
+    cout<<"Your team :"<<endl;
     cout<<userList;
+    cout<<endl;
+
+
+    CREATURESLIST.setDifficulty();
+    cout<<CREATURESLIST;
     return 0;
 }
 
