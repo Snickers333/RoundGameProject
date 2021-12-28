@@ -28,5 +28,20 @@ private:
 public:
     Creature(std::string name, int strength, double agility, int HP, Special special, Element element);
     void Attack(Creature enemy);
+    const std::string &getName() const;
+    void setName(const std::string &name);
+    int getStrength() const;
+    void setStrength(int strength);
+    double getAgility() const;
+    void setAgility(double agility);
+    int getHp() const;
+    void setHp(int hp);
+    const SpecialMove &getSpecialMove() const;
+    void setSpecialMove(const SpecialMove &specialMove);
+    int getExp() const;
+    void setExp(int exp);
+    Element getElement() const;
+    void setElement(Element element);
+    friend std::ostream& operator <<(std::ostream& o, const Element& c);
 };
 #endif //ROUNDGAMEPROJECT_CREATURE_H

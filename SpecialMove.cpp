@@ -20,3 +20,8 @@ SpecialMove::SpecialMove(Special special) {
 SpecialMove::SpecialMove() {
     this->describtion = "Special move not specified";
 }
+
+std::ostream &operator<<(std::ostream &o, const SpecialMove &c) {
+    o<<c.describtion;
+    return o;
+}

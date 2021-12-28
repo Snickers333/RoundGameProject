@@ -5,8 +5,16 @@ CMakeFiles\RoundGameProject.dir\Creature.cpp.obj: ..\Creature.cpp
 CMakeFiles\RoundGameProject.dir\Creature.cpp.obj: ..\Creature.h
 CMakeFiles\RoundGameProject.dir\Creature.cpp.obj: ..\SpecialMove.h
 
+CMakeFiles\RoundGameProject.dir\CreaturesList.cpp.obj: ..\Creature.h
+CMakeFiles\RoundGameProject.dir\CreaturesList.cpp.obj: ..\CreaturesList.cpp
+CMakeFiles\RoundGameProject.dir\CreaturesList.cpp.obj: ..\CreaturesList.h
+CMakeFiles\RoundGameProject.dir\CreaturesList.cpp.obj: ..\SpecialMove.h
+
 CMakeFiles\RoundGameProject.dir\SpecialMove.cpp.obj: ..\SpecialMove.cpp
 CMakeFiles\RoundGameProject.dir\SpecialMove.cpp.obj: ..\SpecialMove.h
 
+CMakeFiles\RoundGameProject.dir\main.cpp.obj: ..\Creature.h
+CMakeFiles\RoundGameProject.dir\main.cpp.obj: ..\CreaturesList.h
+CMakeFiles\RoundGameProject.dir\main.cpp.obj: ..\SpecialMove.h
 CMakeFiles\RoundGameProject.dir\main.cpp.obj: ..\main.cpp
 

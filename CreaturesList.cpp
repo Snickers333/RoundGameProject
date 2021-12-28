@@ -14,3 +14,13 @@ CreaturesList::CreaturesList() {
 CreaturesList::CreaturesList(std::vector<Creature> list) {
     this->list = std::move(list);
 }
+
+std::ostream &operator<<(std::ostream &o, const CreaturesList &c) {
+    int counter = 0;
+    o<<"   "<<"Name"<<" \t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<std::endl;
+    for (auto item : c.list) {
+        counter++;
+        o<<counter<<". "<<item.getName()<<"\t"<<item.getStrength()<<"\t"<<item.getAgility()<<"\t"<<item.getHp()<<"\t"<<item.getElement()<<"\t"<<item.getSpecialMove()<<std::endl;
+    }
+    return o;
+}
