@@ -32,3 +32,18 @@ Creature CreaturesList::getCopyCreature(int index, const CreaturesList& v) {
 Creature &CreaturesList::getCreature(int index, CreaturesList &v) {
     return v.list[index-1];
 }
+
+CreaturesList CreaturesList::makeUserSelection(const CreaturesList &list) {
+    vector<Creature> result;
+
+    int selection;
+    cout<<list;
+
+    for (int i = 6; i > 0; i--) {
+        cout<<"Choose your Creatures. "<<i<<" to go"<<endl;
+        cout<<"Select :";
+        cin>>selection;
+        result.push_back(getCopyCreature(selection, list));
+    }
+    return result;
+}

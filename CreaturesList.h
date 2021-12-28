@@ -9,6 +9,7 @@
 #include "Creature.h"
 #include "SpecialMove.h"
 
+using namespace std;
 class CreaturesList {
 private:
     std::vector<Creature> list;
@@ -17,7 +18,8 @@ public:
     CreaturesList(std::vector<Creature> list);
     friend std::ostream& operator <<(std::ostream& o, const CreaturesList& c);
     static Creature getCopyCreature(int index, const CreaturesList& v);
-    static Creature &getCreature(int index, CreaturesList& v) ;
+    static Creature &getCreature(int index, CreaturesList& v);
+    static CreaturesList makeUserSelection(const CreaturesList& v);
 };
 
 
