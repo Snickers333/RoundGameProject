@@ -16,6 +16,8 @@ public:
     CreaturesList();
     CreaturesList(std::vector<Creature> list);
     friend std::ostream& operator <<(std::ostream& o, const CreaturesList& c);
+    static Creature getCopyCreature(int index, const CreaturesList& v);
+    static Creature &getCreature(int index, CreaturesList& v) ;
 };
 
 

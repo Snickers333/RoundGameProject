@@ -24,3 +24,11 @@ std::ostream &operator<<(std::ostream &o, const CreaturesList &c) {
     }
     return o;
 }
+
+Creature CreaturesList::getCopyCreature(int index, const CreaturesList& v) {
+    return v.list[index-1];
+}
+
+Creature &CreaturesList::getCreature(int index, CreaturesList &v) {
+    return v.list[index-1];
+}
