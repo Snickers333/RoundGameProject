@@ -6,6 +6,7 @@
 #define ROUNDGAMEPROJECT_CREATURESLIST_H
 #include <iostream>
 #include <vector>
+#include <cstdlib>
 #include "Creature.h"
 #include "SpecialMove.h"
 
@@ -21,6 +22,7 @@ public:
     static Creature &getCreature(int index, CreaturesList& v);
     static CreaturesList makeUserSelection(const CreaturesList& v);
     void setDifficulty();
+    static CreaturesList selectRandom(const CreaturesList &list);
 };
 
 

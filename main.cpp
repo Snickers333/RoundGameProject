@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include "Creature.h"
 #include "CreaturesList.h"
 #include "SpecialMove.h"
@@ -10,14 +9,16 @@ int main() {
     //checkIfToContinue();
     cout<<"Welcome to the Game!"<<endl<<"List of available Creatures :"<<endl<<endl;
     cout<<CREATURESLIST;
-    CreaturesList userList = CreaturesList::makeUserSelection(CREATURESLIST);
-    cout<<"Your team :"<<endl;
-    cout<<userList;
-    cout<<endl;
 
+//    CreaturesList userList = CreaturesList::makeUserSelection(CREATURESLIST);
+//    cout<<"Your team :"<<endl;
+//    cout<<userList;
+//    cout<<endl;
+//
 
     CREATURESLIST.setDifficulty();
-    cout<<CREATURESLIST;
+    CreaturesList enemy = CreaturesList::selectRandom(CREATURESLIST);
+    cout<<enemy;
     return 0;
 }
 

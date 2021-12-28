@@ -86,3 +86,15 @@ void CreaturesList::setDifficulty() {
         item.setStrength(item.getStrength()*mod);
     }
 }
+
+CreaturesList CreaturesList::selectRandom(const CreaturesList &list) {
+    vector<Creature> result;
+    srand((unsigned) time(0));
+    int selection;
+    for (int i = 0; i < 4; i++) {
+        selection = (rand() % 15) + 1;
+        result.push_back(getCopyCreature(selection, list));
+    }
+
+    return result;
+}

@@ -6,12 +6,6 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/bkkami/CLionProjects/RoundGameProject/Creature.cpp
-Creature.h
-C:/Users/bkkami/CLionProjects/RoundGameProject/Creature.h
-utility
--
-
 C:/Users/bkkami/CLionProjects/RoundGameProject/Creature.h
 iostream
 -
@@ -29,12 +23,10 @@ iostream
 -
 vector
 -
+cstdlib
+-
 Creature.h
 C:/Users/bkkami/CLionProjects/RoundGameProject/Creature.h
-SpecialMove.h
-C:/Users/bkkami/CLionProjects/RoundGameProject/SpecialMove.h
-
-C:/Users/bkkami/CLionProjects/RoundGameProject/SpecialMove.cpp
 SpecialMove.h
 C:/Users/bkkami/CLionProjects/RoundGameProject/SpecialMove.h
 
@@ -44,8 +36,6 @@ iostream
 
 C:/Users/bkkami/CLionProjects/RoundGameProject/main.cpp
 iostream
--
-vector
 -
 Creature.h
 C:/Users/bkkami/CLionProjects/RoundGameProject/Creature.h
