@@ -4,13 +4,13 @@
 #include "CreaturesList.h"
 #include "SpecialMove.h"
 
-const CreaturesList CREATURESLIST();
+const CreaturesList CREATURESLIST;
 
 static CreaturesList makeUserSelection();
 
 using namespace std;
 int main() {
-    CreaturesList userList = makeUserSelection();
+    cout<<CREATURESLIST;
     return 0;
 }
 

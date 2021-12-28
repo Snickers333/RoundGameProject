@@ -15,6 +15,7 @@ private:
 public:
     CreaturesList();
     CreaturesList(std::vector<Creature> list);
+    friend std::ostream& operator <<(std::ostream& o, const CreaturesList& c);
 };
 
 
