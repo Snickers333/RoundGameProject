@@ -7,8 +7,21 @@
 #include <utility>
 
 CreaturesList::CreaturesList() {
-    list.emplace_back("Stomper", 3, 0.1, 15, hpBoost, earth);
-    list.emplace_back("Fire spark", 7, 0.3, 8, attackBoost, fire);
+    list.emplace_back("Stomper", 3, 0.1, 18, hpBoost, earth);
+    list.emplace_back("Fire spark", 7, 0.3, 9, attackBoost, fire);
+    list.emplace_back("Angry Fish", 4, 0.2, 13, xpBoost, water);
+    list.emplace_back("FastRunner", 5, 0.8, 6, tornado, wind);
+    list.emplace_back("Ice Wolf", 6, 0.5, 13, exhaust, ice);
+    list.emplace_back("Iron Golem", 4, 0.1, 16, laserBeam, steel);
+    list.emplace_back("Blaze", 5, 0.3, 11, ignite, fire);
+    list.emplace_back("Wind Bat", 5, 0.7, 9, agilityBoost, wind);
+    list.emplace_back("IceMonster", 6, 0.2, 10, laserBeam, ice);
+    list.emplace_back("Squid Arc", 5, 0.3, 10, hpBoost, water);
+    list.emplace_back("Dirt Lord", 3, 0.1, 15, exhaust, earth);
+    list.emplace_back("Magma Cube", 12, 0.1, 7, agilityBoost, fire);
+    list.emplace_back("Qck Silver", 2, 0.4, 11, xpBoost, steel);
+    list.emplace_back("Freezer", 5, 0.1, 13, exhaust, ice);
+    list.emplace_back("Swinger", 4, 0.3, 15, attackBoost, wind);
 }
 
 CreaturesList::CreaturesList(std::vector<Creature> list) {

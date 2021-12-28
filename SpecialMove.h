@@ -11,13 +11,19 @@
 enum Special {
     hpBoost,
     agilityBoost,
-    attackBoost
+    attackBoost,
+    tornado, // try
+    ignite,
+    laserBeam,
+    exhaust, //try
+    xpBoost
 };
 
 class SpecialMove {
 private:
     Special special;
     std::string describtion;
+    bool cooldown;
 public:
     SpecialMove();
     SpecialMove(Special special);
