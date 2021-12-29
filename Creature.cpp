@@ -94,3 +94,8 @@ Element Creature::getElement() const {
 void Creature::setElement(Element element) {
     Creature::element = element;
 }
+
+std::ostream &operator<<(std::ostream &o, const Creature &c) {
+    o<<c.getName()<<"\t"<<c.getStrength()<<"\t"<<c.getAgility()<<"\t"<<c.getHp()<<"\t"<<c.getElement()<<"\t"<<c.getSpecialMove()<<std::endl;
+    return o;
+}

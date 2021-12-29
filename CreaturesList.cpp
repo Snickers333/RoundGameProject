@@ -33,17 +33,12 @@ std::ostream &operator<<(std::ostream &o, const CreaturesList &c) {
     o<<"   "<<"Name"<<" \t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<std::endl;
     for (const auto& item : c.list) {
         counter++;
-        o<<counter<<". "<<item.getName()<<"\t"<<item.getStrength()<<"\t"<<item.getAgility()<<"\t"<<item.getHp()<<"\t"<<item.getElement()<<"\t"<<item.getSpecialMove()<<std::endl;
+        o<<counter<<". "<<item;
     }
     return o;
 }
 
 Creature CreaturesList::getCopyCreature(int index) const{
-    return list[index-1];
-}
-
-Creature &CreaturesList::getCreature() {
-    int index;
     return list[index-1];
 }
 
@@ -65,18 +60,21 @@ CreaturesList CreaturesList::makeUserSelection() const{
 void CreaturesList::setDifficulty() {
     cout<<"Choose difficulty :"<<endl<<"1. Easy"<<endl<<"2. Medium"<<endl<<"3. Hard"<<endl;
     int level;
-    cout<<endl<<"Select :";
+    cout<<"Select :";
     cin>>level;
     double mod = 1;
     switch (level) {
         case 1:
             mod = 1;
+            cout<<endl<<"Selected difficulty EASY"<<endl<<endl;
             break;
         case 2:
             mod = 1.3;
+            cout<<endl<<"Selected difficulty MEDIUM"<<endl<<endl;
             break;
         case 3:
             mod = 1.5;
+            cout<<endl<<"Selected difficulty HARD"<<endl<<endl;
             break;
         default:
             break;
@@ -92,12 +90,31 @@ void CreaturesList::setDifficulty() {
 
 CreaturesList CreaturesList::selectRandomEnemies() const{
     vector<Creature> result;
-    srand((unsigned) time(0));
     int selection;
+    srand((unsigned) time(0));
     for (int i = 0; i < 4; i++) {
         selection = (rand() % 15) + 1;
         result.push_back(getCopyCreature(selection));
     }
-
     return result;
+}
+
+Creature * CreaturesList::selectCreature() {
+    int counter = 0;
+    for (auto item : list) {
+        counter++;
+    }
+    int choice;
+    if (counter == 6) {
+        cout<<this->list<<endl;
+        cout<<"Pick your fighter :";
+        cin>>choice;
+        cout<<endl<<"You have chosen :"<<endl<<list[choice-1]<<endl;
+        return &list[choice-1];
+    } else {
+        srand((unsigned) time(0));
+        choice = (rand() % 4) + 1;
+        cout<<"Your enemy is :"<<endl<<list[choice-1]<<endl;
+        return &list[choice-1];
+    }
 }

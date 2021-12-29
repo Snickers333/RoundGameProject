@@ -22,7 +22,7 @@ public:
     CreaturesList makeUserSelection() const;
     void setDifficulty();
     CreaturesList selectRandomEnemies() const;
-    Creature &getCreature();
+    Creature * selectCreature();
 };
 
 

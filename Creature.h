@@ -42,6 +42,7 @@ public:
     void setExp(int exp);
     Element getElement() const;
     void setElement(Element element);
+    friend std::ostream& operator <<(std::ostream& o, const Creature& c);
     friend std::ostream& operator <<(std::ostream& o, const Element& c);
 };
 #endif //ROUNDGAMEPROJECT_CREATURE_H
