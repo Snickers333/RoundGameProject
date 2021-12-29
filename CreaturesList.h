@@ -27,6 +27,8 @@ public:
     bool playerOrPc();
 
     bool creaturesAlive();
+
+    static void showCurrent(CreaturesList list, CreaturesList list1);
 };
 
 

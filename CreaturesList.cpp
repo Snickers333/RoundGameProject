@@ -13,7 +13,7 @@ CreaturesList::CreaturesList() {
     list.emplace_back("FastRunner", 5, 0.5, 6, tornado, wind);
     list.emplace_back("Ice Wolf", 6, 0.3, 13, exhaust, ice);
     list.emplace_back("Iron Golem", 4, 0.1, 16, laserBeam, steel);
-    list.emplace_back("Blaze", 5, 0.2, 11, ignite, fire);
+    list.emplace_back("Blaze  ", 5, 0.2, 11, ignite, fire);
     list.emplace_back("Wind Bat", 5, 0.4, 9, agilityBoost, wind);
     list.emplace_back("IceMonster", 6, 0.2, 10, laserBeam, ice);
     list.emplace_back("Squid Arc", 5, 0.3, 10, hpBoost, water);
@@ -30,10 +30,14 @@ CreaturesList::CreaturesList(std::vector<Creature> list) {
 
 std::ostream &operator<<(std::ostream &o, const CreaturesList &c) {
     int counter = 0;
-    o<<"   "<<"Name"<<" \t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<std::endl;
+    o<<"    "<<"Name"<<" \t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<std::endl;
     for (const auto& item : c.list) {
         counter++;
-        o<<counter<<". "<<item;
+        if (counter > 9) {
+            o<<counter<<"."<<item;
+        } else {
+            o<<counter<<". "<<item;
+        }
     }
     return o;
 }
@@ -48,8 +52,8 @@ CreaturesList CreaturesList::makeUserSelection() const{
     int selection;
 
     for (int i = 6; i > 0; i--) {
-        cout<<endl<<"Choose your Creatures. "<<i<<" to go"<<endl;
-        cout<<"Select :";
+        cout<<endl<<"\t\t\t\tChoose your Creatures. "<<i<<" to go"<<endl;
+        cout<<"\t\t\t\t\tSelect :";
         cin>>selection;
         result.push_back(getCopyCreature(selection));
     }
@@ -58,23 +62,23 @@ CreaturesList CreaturesList::makeUserSelection() const{
 }
 
 void CreaturesList::setDifficulty() {
-    cout<<"Choose difficulty :"<<endl<<"1. Easy"<<endl<<"2. Medium"<<endl<<"3. Hard"<<endl;
+    cout<<"\t\t\t\tChoose difficulty :"<<endl<<"\t\t\t\t\t1. Easy"<<endl<<"\t\t\t\t\t2. Medium"<<endl<<"\t\t\t\t\t3. Hard"<<endl;
     int level;
-    cout<<"Select :";
+    cout<<"\t\t\t\t\tSelect :";
     cin>>level;
     double mod = 1;
     switch (level) {
         case 1:
             mod = 1;
-            cout<<endl<<"Selected difficulty EASY"<<endl<<endl;
+            cout<<endl<<"\t\t\t\t    Selected difficulty EASY"<<endl<<endl;
             break;
         case 2:
             mod = 1.3;
-            cout<<endl<<"Selected difficulty MEDIUM"<<endl<<endl;
+            cout<<endl<<"\t\t\t\t    Selected difficulty MEDIUM"<<endl<<endl;
             break;
         case 3:
             mod = 1.5;
-            cout<<endl<<"Selected difficulty HARD"<<endl<<endl;
+            cout<<endl<<"\t\t\t\t    Selected difficulty HARD"<<endl<<endl;
             break;
         default:
             break;
@@ -104,14 +108,18 @@ Creature * CreaturesList::selectCreature() {
     int choice;
     if (player) {
         cout<<this->list<<endl;
-        cout<<"Pick your fighter :";
+        cout<<"\t\t\t\tPick your fighter :";
         cin>>choice;
-        cout<<endl<<"You have chosen :"<<endl<<list[choice-1]<<endl;
+        cout<<endl<<"\t\t\t\tYou have chosen :"<<endl<<endl;
+        cout<<" Name"<<" \t\t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<endl;
+        cout<<list[choice-1]<<endl;
         return &list[choice-1];
     } else {
         srand((unsigned) time(0));
         choice = (rand() % 4) + 1;
-        cout<<"Your enemy is :"<<endl<<list[choice-1]<<endl;
+        cout<<"\t\t\t\tYour enemy is :"<<endl<<endl;
+        cout<<" Name"<<" \t\t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<endl;
+        cout<<list[choice-1]<<endl;
         return &list[choice-1];
     }
 }
@@ -136,4 +144,11 @@ bool CreaturesList::creaturesAlive() {
         }
     }
     return alive;
+}
+
+void CreaturesList::showCurrent(CreaturesList user, CreaturesList enemy) {
+    cout<<endl<<"\t\t\t\t\tYour team :"<<endl<<endl;
+    cout<<user<<endl;
+    cout<<"\t\t\t\t\tYour Nemesis :"<<endl<<endl;
+    cout<<enemy<<endl;
 }
