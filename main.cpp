@@ -6,18 +6,18 @@ CreaturesList CREATURESLIST;
 
 using namespace std;
 int main() {
-    //checkIfToContinue();
+    //checkIfToContinue(); TODO from saved state
     cout<<"Welcome to the Game!"<<endl<<"List of available Creatures :"<<endl<<endl;
     cout<<CREATURESLIST;
 
-//    CreaturesList userList = CreaturesList::makeUserSelection(CREATURESLIST);
-//    cout<<"Your team :"<<endl;
-//    cout<<userList;
-//    cout<<endl;
-//
+    CreaturesList userList = CREATURESLIST.makeUserSelection();
+    cout<<"Your team :"<<endl;
+    cout<<userList;
+    cout<<endl;
+
 
     CREATURESLIST.setDifficulty();
-    CreaturesList enemy = CreaturesList::selectRandom(CREATURESLIST);
+    CreaturesList enemy = CREATURESLIST.selectRandomEnemies();
     cout<<enemy;
     return 0;
 }

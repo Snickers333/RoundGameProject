@@ -27,6 +27,7 @@ private:
     Element element;
 public:
     Creature(std::string name, int strength, double agility, int HP, Special special, Element element);
+
     void Attack(Creature &enemy);
     const std::string &getName() const;
     void setName(const std::string &name);
