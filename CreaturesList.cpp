@@ -38,12 +38,13 @@ std::ostream &operator<<(std::ostream &o, const CreaturesList &c) {
     return o;
 }
 
-Creature CreaturesList::getCopyCreature(int index, const CreaturesList& v) {
-    return v.list[index-1];
+Creature CreaturesList::getCopyCreature(int index) const{
+    return list[index-1];
 }
 
-Creature &CreaturesList::getCreature(int index, CreaturesList &v) {
-    return v.list[index-1];
+Creature &CreaturesList::getCreature() {
+    int index;
+    return list[index-1];
 }
 
 CreaturesList CreaturesList::makeUserSelection() const{
@@ -55,7 +56,7 @@ CreaturesList CreaturesList::makeUserSelection() const{
         cout<<endl<<"Choose your Creatures. "<<i<<" to go"<<endl;
         cout<<"Select :";
         cin>>selection;
-        result.push_back(getCopyCreature(selection, list));
+        result.push_back(getCopyCreature(selection));
     }
     cout<<endl;
     return result;
@@ -95,7 +96,7 @@ CreaturesList CreaturesList::selectRandomEnemies() const{
     int selection;
     for (int i = 0; i < 4; i++) {
         selection = (rand() % 15) + 1;
-        result.push_back(getCopyCreature(selection, list));
+        result.push_back(getCopyCreature(selection));
     }
 
     return result;
