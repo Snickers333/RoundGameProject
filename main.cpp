@@ -9,6 +9,8 @@ static void play(const CreaturesList& user, const CreaturesList& enemy);
 
 static void playRound(CreaturesList user, CreaturesList enemy);
 
+static void computerMove();
+
 using namespace std;
 int main() {
     //checkIfToContinue(); TODO from saved state (ROUND must be read)
@@ -37,9 +39,10 @@ static void play(const CreaturesList& user, const CreaturesList& enemy) {
             return;
         }
 
-        cout<<endl<<"\t\t\t\t\tRound "<<ROUND++<<endl<<"\t\t\t\t\tFIGHT"<<endl<<endl;
+        cout<<endl<<"\t\t\t\t\tRound "<<ROUND++<<endl<<"\t\t\t\t\tFIGHT"<<endl;
         playRound(user, enemy);
     }
+    cout<<endl<<"\t\t\t\t\tCONGRATULATIONS"<<"\t\t\t\t\t    YOU WON"<<endl;
 }
 
 static void playRound(CreaturesList user, CreaturesList enemy) {
@@ -56,14 +59,28 @@ static void playRound(CreaturesList user, CreaturesList enemy) {
         switch (choice) {
             case 1:
                 ally->attack(*pc);
+                computerMove();
                 break;
             case 2:
+                pc = enemy.selectCreature();
+                computerMove();
                 break;
             case 3:
+                ally = user.selectCreature();
+                computerMove();
                 break;
             case 4:
                 CreaturesList::showCurrent(user, enemy);
         }
     }
+    if (!enemy.creaturesAlive()) {
+        cout<<"\t\t\t\t\tNice Job !"<<endl<<"\t\t\t\tYou won the "<<ROUND<<" round!"<<endl<<endl;
+    } else {
+        cout<<"\t\t\t\t\tYou Lost"<<endl<<"\t\t\t\tGood luck next time!"<<endl<<endl;
+    }
+}
+
+static void computerMove() {
+//    int choice = (rand() % 4) + 1;
 }
 

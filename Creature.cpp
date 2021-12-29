@@ -11,7 +11,7 @@ Creature::Creature(std::string name,int strength, double agility, int HP, Specia
     this->agility = agility;
     this->HP = HP;
     this->specialMove = SpecialMove(special);
-    this->EXP = 0;
+    this->EXP = 1;
     this->element = element;
 }
 
@@ -100,7 +100,7 @@ std::ostream &operator<<(std::ostream &o, const Creature &c) {
     return o;
 }
 
-void Creature::attack(Creature &enemy) const {
+void Creature::attack(Creature &enemy) {
     int modifier = conflict(this, enemy);
     if ((modifier + this->getStrength()) < 0) {
         std::cout<<std::endl<<"Your damage to this entity was to low to deal any damage"<<std::endl<<std::endl;
@@ -108,6 +108,15 @@ void Creature::attack(Creature &enemy) const {
     }
     enemy.setHp(enemy.getHp()-(this->getStrength()+modifier));
     std::cout<<std::endl<<"You have dealt "<<(this->getStrength()+modifier)<<" damage to your enemy"<<std::endl<<std::endl;
+    if (enemy.getHp() <= 0) {
+        this->setExp(this->getExp()+1);
+    }
+    if (this->getExp() % 3 == 0) {
+        this->setExp(this->getExp()+1);
+        this->setHp(this->getHp()+3);
+        this->setStrength(this->getStrength()+2);
+        //TODO AGILITY LEVEL UP
+    }
 }
 
 int Creature::conflict(const Creature *ally, const Creature &enemy) const {

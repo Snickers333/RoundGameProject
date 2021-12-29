@@ -23,11 +23,8 @@ public:
     void setDifficulty();
     CreaturesList selectRandomEnemies() const;
     Creature * selectCreature();
-
     bool playerOrPc();
-
     bool creaturesAlive();
-
     static void showCurrent(CreaturesList list, CreaturesList list1);
 };
 
