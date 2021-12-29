@@ -4,7 +4,9 @@
 #include "SpecialMove.h"
 CreaturesList CREATURESLIST;
 
-static void playRound(CreaturesList user, CreaturesList enemy);
+static void play(CreaturesList user, CreaturesList enemy);
+
+static void playRound();
 
 using namespace std;
 int main() {
@@ -20,12 +22,30 @@ int main() {
 
     CREATURESLIST.setDifficulty();
     CreaturesList enemy = CREATURESLIST.selectRandomEnemies();
-    playRound(user, enemy);
+    play(user, enemy);
     return 0;
 }
 
-static void playRound(CreaturesList user, CreaturesList enemy) {
+static void play(CreaturesList user, CreaturesList enemy) {
     Creature *ally = user.selectCreature();
     Creature *pc = enemy.selectCreature();
+
+    int round = 1;
+    while(user.creaturesAlive() && enemy.creaturesAlive()) {
+        int exit;
+        cout<<"Do you want to save the game and exit ?"<<endl<<"1. Yes"<<endl<<"2. No"<<endl<<"Select :";
+        cin>>exit;
+        if (exit == 1) {
+            //TODO Save Game
+            return;
+        }
+
+        cout<<"Round "<<round++<<endl<<"FIGHT"<<endl;
+        playRound();
+    }
+}
+
+static void playRound() {
+
 }
 

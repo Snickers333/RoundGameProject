@@ -100,12 +100,9 @@ CreaturesList CreaturesList::selectRandomEnemies() const{
 }
 
 Creature * CreaturesList::selectCreature() {
-    int counter = 0;
-    for (auto item : list) {
-        counter++;
-    }
+    bool player = playerOrPc();
     int choice;
-    if (counter == 6) {
+    if (player) {
         cout<<this->list<<endl;
         cout<<"Pick your fighter :";
         cin>>choice;
@@ -117,4 +114,26 @@ Creature * CreaturesList::selectCreature() {
         cout<<"Your enemy is :"<<endl<<list[choice-1]<<endl;
         return &list[choice-1];
     }
+}
+
+bool CreaturesList::playerOrPc() {
+    int counter = 0;
+    for (auto item : list) {
+        counter++;
+    }
+    if (counter == 6) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool CreaturesList::creaturesAlive() {
+    bool alive = false;
+    for (const auto& item : list) {
+        if (item.getHp() > 0) {
+            alive = true;
+        }
+    }
+    return alive;
 }
