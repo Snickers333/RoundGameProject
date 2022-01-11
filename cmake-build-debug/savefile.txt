@@ -1,6 +1,36 @@
-Magma Cube 14 10 3 agilityBoost Fire
-Stomper 3 10 12 hpBoost Earth
-Iron Golem 4 10 16 laserBeam Steel
-Swinger 4 20 15 attackBoost Wind
-Dirt Lord 3 10 15 exhaust Earth
-Squid Arc 5 30 10 hpBoost Water
+FastRunner
+5
+50
+6
+tornado
+Wind
+Stomper
+3
+10
+18
+hpBoost
+Earth
+Fire spark
+7
+20
+9
+attackBoost
+Fire
+Angry Fish
+4
+10
+13
+xpBoost
+Water
+FastRunner
+5
+50
+6
+tornado
+Wind
+Ice Wolf
+6
+30
+13
+exhaust
+Ice

@@ -290,3 +290,19 @@ bool Creature::alive() {
     }
     return false;
 }
+
+Element Creature::getElementIndex(std::string element) {
+    if (element == "water") {
+        return water;
+    } else if (element == "earth") {
+        return earth;
+    } else if (element == "wind") {
+        return wind;
+    } else if (element == "fire") {
+        return fire;
+    } else if (element == "ice") {
+        return ice;
+    } else {
+        return steel;
+    }
+}

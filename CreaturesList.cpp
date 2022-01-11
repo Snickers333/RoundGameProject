@@ -161,8 +161,37 @@ void CreaturesList::showCurrent(CreaturesList user, CreaturesList enemy) {
 void CreaturesList::saveGame() const{
     ofstream saveState ("savefile.txt");
     for (auto const c : this->list) {
-        saveState<<c.getName()<<" "<<c.getStrength()<<" "<<c.getAgility()<<" "<<c.getHp()<<" "<<c.getSpecialMove().getSpecialString()<<" "<<c.getElement()<<"\n";
+        saveState<<c.getName()<<"\n"<<c.getStrength()<<"\n"<<c.getAgility()<<"\n"<<c.getHp()<<"\n"<<c.getSpecialMove().getSpecialString()<<"\n"<<c.getElement()<<"\n";
     }
     saveState.close();
+}
+
+void CreaturesList::readGame() {
+    ifstream file ("savefile.txt");
+    string read;
+    this->list.clear();
+    string name;
+    int dmg;
+    int agility;
+    int hp;
+    Special special;
+    Element element;
+    if (file.is_open()) {
+        for (int i = 0; i < 6; ++i) {
+            getline(file, read);
+            name = read;
+            getline(file, read);
+            dmg = stoi(read);
+            getline(file, read);
+            agility = stoi(read);
+            getline(file, read);
+            hp = stoi(read);
+            getline(file, read);
+            special = SpecialMove::getSpecialIndex(read);
+            getline(file, read);
+            element = Creature::getElementIndex(read);
+            this->list.emplace_back(name, dmg, agility, hp, special, element);
+        }
+    }
 }
 

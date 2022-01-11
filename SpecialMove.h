@@ -12,10 +12,10 @@ enum Special {
     hpBoost,
     agilityBoost,
     attackBoost,
-    tornado, // try
+    tornado,
     ignite,
     laserBeam,
-    exhaust, //try
+    exhaust,
     xpBoost
 };
 
@@ -29,6 +29,7 @@ public:
     friend std::ostream& operator <<(std::ostream& o, const SpecialMove& c);
     Special getSpecial();
     std::string getSpecialString() const;
+    static Special SpecialMove::getSpecialIndex(std::string special);
 };
 
 

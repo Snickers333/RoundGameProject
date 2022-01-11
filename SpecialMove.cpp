@@ -66,3 +66,23 @@ std::string SpecialMove::getSpecialString() const {
     }
     return "std::string()";
 }
+
+Special SpecialMove::getSpecialIndex(std::string special) {
+    if (special == "hpBoost") {
+        return hpBoost;
+    } else if (special == "agilityBoost"){
+        return agilityBoost;
+    } else if (special == "attackBoost"){
+        return attackBoost;
+    } else if (special == "tornado"){
+        return tornado;
+    } else if (special == "ignite"){
+        return ignite;
+    } else if (special == "laserBeam"){
+        return laserBeam;
+    } else if (special == "exhaust"){
+        return exhaust;
+    } else {
+        return xpBoost;
+    }
+}

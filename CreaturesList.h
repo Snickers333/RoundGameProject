@@ -10,6 +10,8 @@
 #include "Creature.h"
 #include "SpecialMove.h"
 #include <fstream>
+#include <string>
+
 
 using namespace std;
 class CreaturesList {
@@ -29,6 +31,7 @@ public:
     static void showCurrent(CreaturesList list, CreaturesList list1);
     Creature *selectCreaturePC();
     void saveGame() const;
+    void readGame();
 };
 
 

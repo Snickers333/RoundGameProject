@@ -13,12 +13,18 @@ static void playRound(CreaturesList &user, CreaturesList &enemy);
 static void computerMove(CreaturesList enemy, Creature *pc, Creature *ally);
 
 using namespace std;
-int main() {
-    //checkIfToContinue(); //TODO from saved state (ROUND must be read), COLOURED LINES, changing creature PC
-    cout<<"\t\t\t\tWelcome to the Game!"<<endl<<"List of available Creatures :"<<endl<<endl;
-    cout<<CREATURESLIST;
-
-    CreaturesList user = CREATURESLIST.makeUserSelection();
+int main() {            //TODO from saved state (ROUND must be read), COLOURED LINES
+    int choice;
+    cout<<"Do you wish to begin where you left off ?"<<endl<<"1. Yes"<<endl<<"2. No"<<endl<<"Selection :";
+    cin>>choice;
+    CreaturesList user;
+    if (choice == 1) {
+        user.readGame();
+    } else {
+        cout << "\t\t\t\tWelcome to the Game!" << endl << "List of available Creatures :" << endl << endl;
+        cout << CREATURESLIST;
+        user = CREATURESLIST.makeUserSelection();
+    }
     CREATURESLIST.setDifficulty();
     CreaturesList enemy = CREATURESLIST.selectRandomEnemies();
     play(user, enemy);

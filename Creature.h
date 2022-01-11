@@ -52,5 +52,6 @@ public:
     static void showCurrentChosen(Creature *pCreature, Creature *pCreature1);
     void checkLevelUp();
     bool alive();
+    static Element getElementIndex(std::string element);
 };
 #endif //ROUNDGAMEPROJECT_CREATURE_H
