@@ -13,7 +13,7 @@ static void computerMove(CreaturesList enemy, Creature *pc, Creature *ally);
 
 using namespace std;
 int main() {
-    //checkIfToContinue(); TODO from saved state (ROUND must be read), AGILITY DODGE CHANCE, COLOURED LINES
+    //checkIfToContinue(); TODO from saved state (ROUND must be read), COLOURED LINES
     cout<<"\t\t\t\tWelcome to the Game!"<<endl<<"List of available Creatures :"<<endl<<endl;
     cout<<CREATURESLIST;
 
@@ -99,22 +99,18 @@ static void computerMove(CreaturesList enemy, Creature *pc, Creature *ally) {
             case 1:
                 pc->attack(*ally, 0);
                 valid = false;
-                cout<<"PC attacked";
                 break;
             case 2:
                 if (pc->specialAttack(*ally)) {
                     break;
                 }
                 valid = false;
-                cout<<"PC special";
                 break;
             case 3:
                 pc = enemy.selectCreaturePC(pc);
                 valid = false;
-                cout<<"PC creatureselect";
                 break;
             default :
-                cout<<"Make a choice in range"<<endl;
                 break;
         }
     }

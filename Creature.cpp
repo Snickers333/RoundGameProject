@@ -5,7 +5,7 @@
 #include "Creature.h"
 #include <utility>
 
-Creature::Creature(std::string name,int strength, double agility, int HP, Special special, Element element) {
+Creature::Creature(std::string name,int strength, int agility, int HP, Special special, Element element) {
     this->name = std::move(name);
     this->strength = strength;
     this->agility = agility;
@@ -110,6 +110,11 @@ std::ostream &operator<<(std::ostream &o, const Creature &c) {
 }
 
 void Creature::attack(Creature &enemy, int fixed) {
+    srand((unsigned) time(0));
+    if (this->getAgility() > (rand() % 100)) {
+        std::cout<<"Whoops ! "<<enemy.getName()<<" has dodged "<<this->getName()<<"'s attack !"<<std::endl;
+        return;
+    }
     int power;
     if (fixed == 0){
         power = this->getStrength();
@@ -150,20 +155,20 @@ bool Creature::specialAttack(Creature &enemy) {
             this->setHp(this->getHp()+5);
             break;
         case agilityBoost:
-            std::cout<<std::endl<<this->getName()<<" became quicker and far less noticeable. Agility has increased by 0.1 !"<<std::endl;
-            this->setAgility(this->getAgility() + 0.1);
+            std::cout<<std::endl<<this->getName()<<" became quicker and far less noticeable. Agility has increased by 10 !"<<std::endl;
+            this->setAgility(this->getAgility() + 10);
             break;
         case attackBoost:
             std::cout<<std::endl<<this->getName()<<" is growing bigger and stronger. Attack has increased by 3 !"<<std::endl;
             this->setStrength(this->getStrength() + 3);
             break;
         case tornado:
-            if (enemy.getAgility() < 0.3) {
+            if (enemy.getAgility() < 30) {
                 std::cout<<std::endl<<enemy.getName()<<" is slow enough. No need to slow him more."<<std::endl;
                 return true;
             } else {
-                std::cout<<std::endl<<"The tornado slows "<<enemy.getName()<<", lowering his Agility by 0.2 !"<<std::endl;
-                enemy.setAgility(enemy.getAgility()-0.2);
+                std::cout<<std::endl<<"The tornado slows "<<enemy.getName()<<", lowering his Agility by 20 !"<<std::endl;
+                enemy.setAgility(enemy.getAgility()-20);
             }
             break;
         case ignite:
@@ -193,7 +198,7 @@ bool Creature::specialAttack(Creature &enemy) {
     return false;
 }
 
-int Creature::conflictModifier(const Creature *ally, const Creature &enemy) const {
+int Creature::conflictModifier(const Creature *ally, const Creature &enemy) {
     switch (ally->getElement()) {
         case water:
             switch (enemy.getElement()) {

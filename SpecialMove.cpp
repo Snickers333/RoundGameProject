@@ -10,7 +10,7 @@ SpecialMove::SpecialMove(Special special) {
             this->describtion = "HP Boost : Boosts your health by 5";
             break;
         case agilityBoost:
-            this->describtion = "Agility Boost : Boosts your agility by 0.1";
+            this->describtion = "Agility Boost : Boosts your agility by 10";
             break;
         case ignite:
             this->describtion = "Ignite : Set your enemy on fire dealing him 9 damage";
@@ -25,7 +25,7 @@ SpecialMove::SpecialMove(Special special) {
             this->describtion = "XP Boost : Gives some additional XP points";
             break;
         case tornado:
-            this->describtion = "Tornado : Lower enemy's agility by 0.2";
+            this->describtion = "Tornado : Lower enemy's agility by 20";
             break;
         default:
             break;

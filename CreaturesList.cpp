@@ -7,21 +7,21 @@
 #include <utility>
 
 CreaturesList::CreaturesList() {
-    list.emplace_back("Stomper", 3, 0.1, 18, hpBoost, earth);
-    list.emplace_back("Fire spark", 7, 0.2, 9, attackBoost, fire);
-    list.emplace_back("Angry Fish", 4, 0.1, 13, xpBoost, water);
-    list.emplace_back("FastRunner", 5, 0.5, 6, tornado, wind);
-    list.emplace_back("Ice Wolf", 6, 0.3, 13, exhaust, ice);
-    list.emplace_back("Iron Golem", 4, 0.1, 16, laserBeam, steel);
-    list.emplace_back("Blaze  ", 5, 0.2, 11, ignite, fire);
-    list.emplace_back("Wind Bat", 5, 0.4, 9, agilityBoost, wind);
-    list.emplace_back("IceMonster", 6, 0.2, 10, laserBeam, ice);
-    list.emplace_back("Squid Arc", 5, 0.3, 10, hpBoost, water);
-    list.emplace_back("Dirt Lord", 3, 0.1, 15, exhaust, earth);
-    list.emplace_back("Magma Cube", 12, 0.1, 7, agilityBoost, fire);
-    list.emplace_back("Qck Silver", 2, 0.2, 11, xpBoost, steel);
-    list.emplace_back("Freezer", 5, 0.1, 13, exhaust, ice);
-    list.emplace_back("Swinger", 4, 0.2, 15, attackBoost, wind);
+    list.emplace_back("Stomper", 3, 10, 18, hpBoost, earth);
+    list.emplace_back("Fire spark", 7, 20, 9, attackBoost, fire);
+    list.emplace_back("Angry Fish", 4, 10, 13, xpBoost, water);
+    list.emplace_back("FastRunner", 5, 50, 6, tornado, wind);
+    list.emplace_back("Ice Wolf", 6, 30, 13, exhaust, ice);
+    list.emplace_back("Iron Golem", 4, 10, 16, laserBeam, steel);
+    list.emplace_back("Blaze  ", 5, 20, 11, ignite, fire);
+    list.emplace_back("Wind Bat", 5, 40, 9, agilityBoost, wind);
+    list.emplace_back("IceMonster", 6, 20, 10, laserBeam, ice);
+    list.emplace_back("Squid Arc", 5, 30, 10, hpBoost, water);
+    list.emplace_back("Dirt Lord", 3, 10, 15, exhaust, earth);
+    list.emplace_back("Magma Cube", 12, 10, 7, agilityBoost, fire);
+    list.emplace_back("Qck Silver", 2, 20, 11, xpBoost, steel);
+    list.emplace_back("Freezer", 5, 10, 13, exhaust, ice);
+    list.emplace_back("Swinger", 4, 20, 15, attackBoost, wind);
 }
 
 CreaturesList::CreaturesList(std::vector<Creature> list) {

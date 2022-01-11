@@ -20,14 +20,14 @@ class Creature {
 private:
     std::string name;
     int strength;
-    double agility;
+    int agility;
     int HP;
     SpecialMove specialMove;
     int EXP;
     Element element;
     bool cooldown;
 public:
-    Creature(std::string name, int strength, double agility, int HP, Special special, Element element);
+    Creature(std::string name, int strength, int agility, int HP, Special special, Element element);
     void attack(Creature &enemy, int fixed);
     bool specialAttack(Creature &enemy);
     const std::string &getName() const;
@@ -48,7 +48,7 @@ public:
     void setCooldown(bool cooldown);
     friend std::ostream& operator <<(std::ostream& o, const Creature& c);
     friend std::ostream& operator <<(std::ostream& o, const Element& c);
-    int conflictModifier(const Creature *ally, const Creature& enemy) const;
+    static int conflictModifier(const Creature *ally, const Creature& enemy) ;
     static void showCurrentChosen(Creature *pCreature, Creature *pCreature1);
     void checkLevelUp();
     bool alive();
