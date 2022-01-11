@@ -9,7 +9,7 @@ static void play(const CreaturesList& user, const CreaturesList& enemy);
 
 static void playRound(CreaturesList user, CreaturesList enemy);
 
-static void computerMove();
+static void computerMove(CreaturesList enemy, Creature *pc, Creature *ally);
 
 using namespace std;
 int main() {
@@ -18,11 +18,6 @@ int main() {
     cout<<CREATURESLIST;
 
     CreaturesList user = CREATURESLIST.makeUserSelection();
-    cout<<"\t\t\t\t\tYour team :"<<endl<<endl;
-    cout<<user;
-    cout<<endl;
-
-
     CREATURESLIST.setDifficulty();
     CreaturesList enemy = CREATURESLIST.selectRandomEnemies();
     play(user, enemy);
@@ -47,7 +42,7 @@ static void play(const CreaturesList& user, const CreaturesList& enemy) {
 
 static void playRound(CreaturesList user, CreaturesList enemy) {
     Creature *ally = user.selectCreature();
-    Creature *pc = enemy.selectCreature();
+    Creature *pc = enemy.selectCreaturePC(ally);
     cout<<endl<<"\t\t\t\tYour enemy is :"<<endl<<endl;
     cout<<" Name"<<" \t\t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<endl;
     cout<<*pc<<endl;
@@ -58,7 +53,7 @@ static void playRound(CreaturesList user, CreaturesList enemy) {
             cout<<endl<<"Your creature has died !"<<endl;
             ally = user.selectCreature();
         } else if (!pc->alive()) {
-            pc = enemy.selectCreature();
+            pc = enemy.selectCreaturePC(pc);
         }
         if (choice != 0) {
             Creature::showCurrentChosen(ally, pc);
@@ -68,22 +63,23 @@ static void playRound(CreaturesList user, CreaturesList enemy) {
         switch (choice) {
             case 1:
                 ally->attack(*pc, 0);
-                computerMove();
+                computerMove(enemy, pc, ally);
                 break;
             case 2:
                 if (ally->specialAttack(*pc))
                     break;
-                computerMove();
+                computerMove(enemy, pc, ally);
                 break;
             case 3:
                 ally = user.selectCreature();
-                computerMove();
+                computerMove(enemy, pc, ally);
                 break;
             case 4:
                 CreaturesList::showCurrent(user, enemy);
                 break;
             default :
                 cout<<"Make a choice in range"<<endl;
+                break;
         }
     }
     if (!enemy.creaturesAlive()) {
@@ -93,8 +89,34 @@ static void playRound(CreaturesList user, CreaturesList enemy) {
     }
 }
 
-static void computerMove() {
-//    int choice = (rand() % 4) + 1;
-//    pc = enemy.selectCreature();
+static void computerMove(CreaturesList enemy, Creature *pc, Creature *ally) {
+    srand((unsigned) time(0));
+    int choice;
+    bool valid = true;
+    while (valid) {
+        choice = (rand() % 3) + 1;
+        switch (choice) {
+            case 1:
+                pc->attack(*ally, 0);
+                valid = false;
+                cout<<"PC attacked";
+                break;
+            case 2:
+                if (pc->specialAttack(*ally)) {
+                    break;
+                }
+                valid = false;
+                cout<<"PC special";
+                break;
+            case 3:
+                pc = enemy.selectCreaturePC(pc);
+                valid = false;
+                cout<<"PC creatureselect";
+                break;
+            default :
+                cout<<"Make a choice in range"<<endl;
+                break;
+        }
+    }
 }
 

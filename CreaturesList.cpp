@@ -104,26 +104,29 @@ CreaturesList CreaturesList::selectRandomEnemies() const{
 }
 
 Creature * CreaturesList::selectCreature() {
-    bool player = playerOrPc();
     int choice;
     do {
-        if (player) {
-            cout << endl << this->list << endl;
-            cout << "\t\t\t\tPick your fighter :";
-            cin >> choice;
-            cout << endl << "\t\t\t\tYou have chosen :" << endl << endl;
-            cout << " Name" << " \t\t" << "Attack" << "\t" << "Agility" << "\t" << "Health" << "\t" << "Element"
-                 << "\t\t" << "Special Move" << endl;
-            cout << list[choice - 1] << endl;
-        } else {
-            for (int i = 0; i < 4; i++) {
-                if (list[i].alive()) {
-                    return &list[i];
-                }
-            }
+        cout << endl << this->list << endl;
+        cout << "\t\t\t\tPick your fighter :";
+        cin >> choice;
+        cout << endl << "\t\t\t\tYou have chosen :" << endl << endl;
+        cout << " Name" << " \t\t" << "Attack" << "\t" << "Agility" << "\t" << "Health" << "\t" << "Element"
+            << "\t\t" << "Special Move" << endl;
+        cout << list[choice - 1] << endl;
+        if (list[choice-1].getHp() <= 0) {
+            cout<<"Incorrect choice, this creature is already dead."<<endl;
         }
-    } while (list[choice-1].getHp() < 0);
+    } while (list[choice-1].getHp() <= 0);
     return &list[choice-1];
+}
+
+Creature * CreaturesList::selectCreaturePC(Creature *creature) {
+    for (int i = 0; i < 4; ++i) {
+        if (list[i].alive() && &list[i] != creature) {
+            cout<<" Your enemy changed his creature to "<<endl<<list[i]<<endl;
+            return &list[i];
+        }
+    }
 }
 
 bool CreaturesList::playerOrPc() {

@@ -118,11 +118,11 @@ void Creature::attack(Creature &enemy, int fixed) {
     }
     int modifier = conflictModifier(this, enemy);
     if ((modifier + power) < 0) {
-        std::cout<<std::endl<<"Your damage to this entity was to low to deal any damage"<<std::endl<<std::endl;
+        std::cout<<std::endl<<"Your damage to this entity was too low to make any harm"<<std::endl<<std::endl;
         return;
     }
     enemy.setHp(enemy.getHp()-(power+modifier));
-    std::cout<<std::endl<<"You have dealt "<<(power+modifier)<<" damage to your enemy"<<std::endl<<std::endl;
+    std::cout<<std::endl<<this->getName()<<" has dealt "<<(power+modifier)<<" damage to "<<enemy.getName()<<std::endl<<std::endl;
     if (!enemy.alive()) {
         enemy.setHp(0);
         this->setExp(this->getExp()+1);
@@ -135,51 +135,51 @@ void Creature::checkLevelUp() {
         this->setExp(this->getExp()+1);
         this->setHp(this->getHp()+3);
         this->setStrength(this->getStrength()+2);
-        std::cout<<"Your Creature Has Just Leveled UP !"<<std::endl;
+        std::cout<<this->getName()<<" Has Just Leveled UP !"<<std::endl;
     }
 }
 
 bool Creature::specialAttack(Creature &enemy) {
     if (this->isCooldown()) {
-        std::cout<<std::endl<<"This ability is on cooldown."<<std::endl;
+        std::cout<<std::endl<<this->getName()<<" : This ability is on cooldown."<<std::endl;
         return true;
     }
     switch (this->specialMove.getSpecial()) {
         case hpBoost:
-            std::cout<<std::endl<<"You ate a lot, resulting in HP increased by 5 !"<<std::endl;
+            std::cout<<std::endl<<this->getName()<<" ate a lot, resulting in HP increased by 5 !"<<std::endl;
             this->setHp(this->getHp()+5);
             break;
         case agilityBoost:
-            std::cout<<std::endl<<"You become quicker and far less noticeable. Your Agility has increased by 0.1 !"<<std::endl;
+            std::cout<<std::endl<<this->getName()<<" became quicker and far less noticeable. Agility has increased by 0.1 !"<<std::endl;
             this->setAgility(this->getAgility() + 0.1);
             break;
         case attackBoost:
-            std::cout<<std::endl<<"Your growing bigger and stronger. Your Attack has increased by 3 !"<<std::endl;
+            std::cout<<std::endl<<this->getName()<<" is growing bigger and stronger. Attack has increased by 3 !"<<std::endl;
             this->setStrength(this->getStrength() + 3);
             break;
         case tornado:
             if (enemy.getAgility() < 0.3) {
-                std::cout<<std::endl<<"Your enemy is slow enough. No need to slow him more."<<std::endl;
+                std::cout<<std::endl<<enemy.getName()<<" is slow enough. No need to slow him more."<<std::endl;
                 return true;
             } else {
-                std::cout<<std::endl<<"The tornado slows your enemy, lowering his Agility by 0.2 !"<<std::endl;
+                std::cout<<std::endl<<"The tornado slows "<<enemy.getName()<<", lowering his Agility by 0.2 !"<<std::endl;
                 enemy.setAgility(enemy.getAgility()-0.2);
             }
             break;
         case ignite:
-            std::cout<<std::endl<<"Black magic sets your enemy on fire !"<<std::endl;
+            std::cout<<std::endl<<"Black magic sets "<<enemy.getName()<<" on fire !"<<std::endl;
             this->attack(enemy, 9);
             break;
         case laserBeam:
-            std::cout<<std::endl<<"Your laser tears through your enemy !"<<std::endl;
+            std::cout<<std::endl<<this->getName()<<"'s laser tears through "<<enemy.getName()<<" !"<<std::endl;
             this->attack(enemy, 7);
             break;
         case exhaust:
             if (enemy.getStrength() >= 4) {
                 enemy.setStrength(enemy.getStrength() - 3);
-                std::cout<<std::endl<<"Your enemy is now exhausted, dealing 3 damage less !"<<std::endl;
+                std::cout<<std::endl<<enemy.getName()<<" is now exhausted, dealing 3 damage less !"<<std::endl;
             } else {
-                std::cout<<std::endl<<"Your enemy is too weak to be exhausted further"<<std::endl;
+                std::cout<<std::endl<<enemy.getName()<<" is too weak to be exhausted further"<<std::endl;
                 return true;
             }
             break;
