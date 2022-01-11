@@ -13,7 +13,7 @@ static void computerMove();
 
 using namespace std;
 int main() {
-    //checkIfToContinue(); TODO from saved state (ROUND must be read)
+    //checkIfToContinue(); TODO from saved state (ROUND must be read), AGILITY DODGE CHANCE, COLOURED LINES
     cout<<"\t\t\t\tWelcome to the Game!"<<endl<<"List of available Creatures :"<<endl<<endl;
     cout<<CREATURESLIST;
 
@@ -48,6 +48,9 @@ static void play(const CreaturesList& user, const CreaturesList& enemy) {
 static void playRound(CreaturesList user, CreaturesList enemy) {
     Creature *ally = user.selectCreature();
     Creature *pc = enemy.selectCreature();
+    cout<<endl<<"\t\t\t\tYour enemy is :"<<endl<<endl;
+    cout<<" Name"<<" \t\t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<endl;
+    cout<<*pc<<endl;
 
     int choice = 0;
     while (user.creaturesAlive() && enemy.creaturesAlive()) {
@@ -58,11 +61,12 @@ static void playRound(CreaturesList user, CreaturesList enemy) {
         cin>>choice;
         switch (choice) {
             case 1:
-                ally->attack(*pc);
+                ally->attack(*pc, 0);
                 computerMove();
                 break;
             case 2:
-                pc = enemy.selectCreature();
+                if (ally->specialAttack(*pc))
+                    break;
                 computerMove();
                 break;
             case 3:
@@ -82,5 +86,6 @@ static void playRound(CreaturesList user, CreaturesList enemy) {
 
 static void computerMove() {
 //    int choice = (rand() % 4) + 1;
+//    pc = enemy.selectCreature();
 }
 

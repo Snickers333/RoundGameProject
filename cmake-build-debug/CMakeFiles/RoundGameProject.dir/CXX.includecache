@@ -6,35 +6,19 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/bkkami/CLionProjects/RoundGameProject/Creature.h
-iostream
--
-SpecialMove.h
-C:/Users/bkkami/CLionProjects/RoundGameProject/SpecialMove.h
-
-C:/Users/bkkami/CLionProjects/RoundGameProject/CreaturesList.h
-iostream
--
-vector
--
-cstdlib
--
+C:/Users/bkkami/CLionProjects/RoundGameProject/Creature.cpp
 Creature.h
 C:/Users/bkkami/CLionProjects/RoundGameProject/Creature.h
-SpecialMove.h
-C:/Users/bkkami/CLionProjects/RoundGameProject/SpecialMove.h
-
-C:/Users/bkkami/CLionProjects/RoundGameProject/SpecialMove.h
-iostream
+utility
 -
 
-C:/Users/bkkami/CLionProjects/RoundGameProject/main.cpp
-iostream
--
-Creature.h
 C:/Users/bkkami/CLionProjects/RoundGameProject/Creature.h
-CreaturesList.h
-C:/Users/bkkami/CLionProjects/RoundGameProject/CreaturesList.h
+iostream
+-
 SpecialMove.h
 C:/Users/bkkami/CLionProjects/RoundGameProject/SpecialMove.h
+
+C:/Users/bkkami/CLionProjects/RoundGameProject/SpecialMove.h
+iostream
+-
 

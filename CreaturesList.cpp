@@ -106,22 +106,21 @@ CreaturesList CreaturesList::selectRandomEnemies() const{
 Creature * CreaturesList::selectCreature() {
     bool player = playerOrPc();
     int choice;
-    if (player) {
-        cout<<endl<<this->list<<endl;
-        cout<<"\t\t\t\tPick your fighter :";
-        cin>>choice;
-        cout<<endl<<"\t\t\t\tYou have chosen :"<<endl<<endl;
-        cout<<" Name"<<" \t\t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<endl;
-        cout<<list[choice-1]<<endl;
-        return &list[choice-1];
-    } else {
-        srand((unsigned) time(0));
-        choice = (rand() % 4) + 1;
-        cout<<endl<<"\t\t\t\tYour enemy is :"<<endl<<endl;
-        cout<<" Name"<<" \t\t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<endl;
-        cout<<list[choice-1]<<endl;
-        return &list[choice-1];
-    }
+    do {
+        if (player) {
+            cout << endl << this->list << endl;
+            cout << "\t\t\t\tPick your fighter :";
+            cin >> choice;
+            cout << endl << "\t\t\t\tYou have chosen :" << endl << endl;
+            cout << " Name" << " \t\t" << "Attack" << "\t" << "Agility" << "\t" << "Health" << "\t" << "Element"
+                 << "\t\t" << "Special Move" << endl;
+            cout << list[choice - 1] << endl;
+        } else {
+            srand((unsigned) time(0));
+            choice = (rand() % 4) + 1;
+        }
+    } while (list[choice-1].getHp() < 0);
+    return &list[choice-1];
 }
 
 bool CreaturesList::playerOrPc() {

@@ -27,7 +27,8 @@ private:
     Element element;
 public:
     Creature(std::string name, int strength, double agility, int HP, Special special, Element element);
-    void attack(Creature &enemy);
+    void attack(Creature &enemy, int fixed);
+    bool specialAttack(Creature &enemy);
     const std::string &getName() const;
     void setName(const std::string &name);
     int getStrength() const;
@@ -44,8 +45,8 @@ public:
     void setElement(Element element);
     friend std::ostream& operator <<(std::ostream& o, const Creature& c);
     friend std::ostream& operator <<(std::ostream& o, const Element& c);
-    int conflict(const Creature *ally, const Creature& enemy) const;
-
+    int conflictModifier(const Creature *ally, const Creature& enemy) const;
     static void showCurrentChosen(Creature *pCreature, Creature *pCreature1);
+    void checkLevelUp();
 };
 #endif //ROUNDGAMEPROJECT_CREATURE_H
