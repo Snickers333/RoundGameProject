@@ -141,7 +141,7 @@ void Creature::checkLevelUp() {
         this->setExp(this->getExp()+1);
         this->setHp(this->getHp()+3);
         this->setStrength(this->getStrength()+2);
-        std::cout<<this->getName()<<" Has Just Leveled UP !"<<std::endl;
+        std::cout<<std::endl<<this->getName()<<" Has Just Leveled UP !"<<std::endl;
     }
 }
 

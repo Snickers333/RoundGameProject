@@ -119,13 +119,14 @@ Creature * CreaturesList::selectCreature() {
     return &list[choice-1];
 }
 
-Creature * CreaturesList::selectCreaturePC(Creature *creature) {
-    for (int i = 0; i < 4; ++i) {
-        if (list[i].alive() && &list[i] != creature) {
-            cout<<" Your enemy changed his creature to "<<endl<<list[i]<<endl;
-            return &list[i];
+Creature * CreaturesList::selectCreaturePC() {
+    srand((unsigned) time(0));
+    int i = 0;
+        while (!list[i].alive()) {
+            i = (rand() % 3);
         }
-    }
+    cout<<endl<<" Your enemy changed his creature to "<<endl<<list[i]<<endl;
+    return &list[i];
 }
 
 bool CreaturesList::playerOrPc() {
@@ -164,3 +165,4 @@ void CreaturesList::saveGame() const{
     }
     saveState.close();
 }
+

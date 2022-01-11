@@ -27,7 +27,7 @@ public:
     bool playerOrPc();
     bool creaturesAlive();
     static void showCurrent(CreaturesList list, CreaturesList list1);
-    Creature *selectCreaturePC(Creature *creature);
+    Creature *selectCreaturePC();
     void saveGame() const;
 };
 

@@ -14,7 +14,7 @@ static void computerMove(CreaturesList enemy, Creature *pc, Creature *ally);
 
 using namespace std;
 int main() {
-    //checkIfToContinue(); TODO from saved state (ROUND must be read), COLOURED LINES, changing creature PC
+    //checkIfToContinue(); //TODO from saved state (ROUND must be read), COLOURED LINES, changing creature PC
     cout<<"\t\t\t\tWelcome to the Game!"<<endl<<"List of available Creatures :"<<endl<<endl;
     cout<<CREATURESLIST;
 
@@ -43,7 +43,7 @@ static void play(CreaturesList& user, CreaturesList& enemy) {
 
 static void playRound(CreaturesList &user, CreaturesList &enemy) {
     Creature *ally = user.selectCreature();
-    Creature *pc = enemy.selectCreaturePC(ally);
+    Creature *pc = enemy.selectCreaturePC();
     cout<<endl<<"\t\t\t\tYour enemy is :"<<endl<<endl;
     cout<<" Name"<<" \t\t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<endl;
     cout<<*pc<<endl;
@@ -54,7 +54,7 @@ static void playRound(CreaturesList &user, CreaturesList &enemy) {
             cout<<endl<<"Your creature has died !"<<endl;
             ally = user.selectCreature();
         } else if (!pc->alive()) {
-            pc = enemy.selectCreaturePC(pc);
+            pc = enemy.selectCreaturePC();
         }
         if (choice != 0) {
             Creature::showCurrentChosen(ally, pc);
@@ -87,6 +87,7 @@ static void playRound(CreaturesList &user, CreaturesList &enemy) {
         cout<<"\t\t\t\t\tNice Job !"<<endl<<"\t\t\t\tYou won the "<<ROUND++<<" round!"<<endl<<endl;
     } else {
         cout<<"\t\t\t\t\tYou Lost"<<endl<<"\t\t\t\tGood luck next time!"<<endl<<endl;
+        ROUND = 10;
     }
 }
 
@@ -108,7 +109,7 @@ static void computerMove(CreaturesList enemy, Creature *pc, Creature *ally) {
                 valid = false;
                 break;
             case 3:
-                pc = enemy.selectCreaturePC(pc);
+                pc = enemy.selectCreaturePC();
                 valid = false;
                 break;
             default :
