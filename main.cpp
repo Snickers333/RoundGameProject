@@ -39,10 +39,10 @@ static void play(const CreaturesList& user, const CreaturesList& enemy) {
             return;
         }
 
-        cout<<endl<<"\t\t\t\t\tRound "<<ROUND++<<endl<<"\t\t\t\t\tFIGHT"<<endl;
+        cout<<endl<<"\t\t\t\t\tRound "<<ROUND<<endl<<"\t\t\t\t\tFIGHT"<<endl;
         playRound(user, enemy);
     }
-    cout<<endl<<"\t\t\t\t\tCONGRATULATIONS"<<"\t\t\t\t\t    YOU WON"<<endl;
+    cout<<endl<<"\t\t\t\tCONGRATULATIONS"<<"    YOU WON"<<endl;
 }
 
 static void playRound(CreaturesList user, CreaturesList enemy) {
@@ -54,6 +54,12 @@ static void playRound(CreaturesList user, CreaturesList enemy) {
 
     int choice = 0;
     while (user.creaturesAlive() && enemy.creaturesAlive()) {
+        if (!ally->alive()) {
+            cout<<endl<<"Your creature has died !"<<endl;
+            ally = user.selectCreature();
+        } else if (!pc->alive()) {
+            pc = enemy.selectCreature();
+        }
         if (choice != 0) {
             Creature::showCurrentChosen(ally, pc);
         }
@@ -75,10 +81,13 @@ static void playRound(CreaturesList user, CreaturesList enemy) {
                 break;
             case 4:
                 CreaturesList::showCurrent(user, enemy);
+                break;
+            default :
+                cout<<"Make a choice in range"<<endl;
         }
     }
     if (!enemy.creaturesAlive()) {
-        cout<<"\t\t\t\t\tNice Job !"<<endl<<"\t\t\t\tYou won the "<<ROUND<<" round!"<<endl<<endl;
+        cout<<"\t\t\t\t\tNice Job !"<<endl<<"\t\t\t\tYou won the "<<ROUND++<<" round!"<<endl<<endl;
     } else {
         cout<<"\t\t\t\t\tYou Lost"<<endl<<"\t\t\t\tGood luck next time!"<<endl<<endl;
     }

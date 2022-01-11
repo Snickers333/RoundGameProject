@@ -37,7 +37,7 @@ public:
     void setAgility(double agility);
     int getHp() const;
     void setHp(int hp);
-    const SpecialMove &getSpecialMove() const;
+    SpecialMove getSpecialMove() const;
     void setSpecialMove(const SpecialMove &specialMove);
     int getExp() const;
     void setExp(int exp);
@@ -48,5 +48,6 @@ public:
     int conflictModifier(const Creature *ally, const Creature& enemy) const;
     static void showCurrentChosen(Creature *pCreature, Creature *pCreature1);
     void checkLevelUp();
+    bool alive();
 };
 #endif //ROUNDGAMEPROJECT_CREATURE_H

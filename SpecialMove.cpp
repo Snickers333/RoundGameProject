@@ -50,6 +50,6 @@ void SpecialMove::setCooldown(bool cooldown) {
     SpecialMove::cooldown = cooldown;
 }
 
-Special SpecialMove::getSpecial() const {
+Special SpecialMove::getSpecial() {
     return special;
 }

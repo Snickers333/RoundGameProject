@@ -71,7 +71,7 @@ void Creature::setHp(int hp) {
     HP = hp;
 }
 
-const SpecialMove &Creature::getSpecialMove() const {
+SpecialMove Creature::getSpecialMove() const {
     return specialMove;
 }
 
@@ -114,7 +114,8 @@ void Creature::attack(Creature &enemy, int fixed) {
     }
     enemy.setHp(enemy.getHp()-(power+modifier));
     std::cout<<std::endl<<"You have dealt "<<(power+modifier)<<" damage to your enemy"<<std::endl<<std::endl;
-    if (enemy.getHp() <= 0) {
+    if (!enemy.alive()) {
+        enemy.setHp(0);
         this->setExp(this->getExp()+1);
     }
     this->checkLevelUp();
@@ -265,4 +266,11 @@ void Creature::showCurrentChosen(Creature *ally, Creature *pc) {
     std::cout<<"\t\t\t\t\tENEMY"<<std::endl<<std::endl;
     std::cout<<" Name"<<" \t\t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<std::endl;
     std::cout<<*pc<<std::endl;
+}
+
+bool Creature::alive() {
+    if (this->getHp() > 0) {
+        return true;
+    }
+    return false;
 }

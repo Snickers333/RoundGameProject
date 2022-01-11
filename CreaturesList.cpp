@@ -116,8 +116,11 @@ Creature * CreaturesList::selectCreature() {
                  << "\t\t" << "Special Move" << endl;
             cout << list[choice - 1] << endl;
         } else {
-            srand((unsigned) time(0));
-            choice = (rand() % 4) + 1;
+            for (int i = 0; i < 4; i++) {
+                if (list[i].alive()) {
+                    return &list[i];
+                }
+            }
         }
     } while (list[choice-1].getHp() < 0);
     return &list[choice-1];

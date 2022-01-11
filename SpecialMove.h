@@ -28,7 +28,7 @@ public:
     SpecialMove();
     SpecialMove(Special special);
     friend std::ostream& operator <<(std::ostream& o, const SpecialMove& c);
-    Special getSpecial() const;
+    Special getSpecial();
     bool isCooldown() const;
     void setCooldown(bool cooldown);
 };
