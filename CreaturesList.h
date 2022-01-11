@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include "Creature.h"
 #include "SpecialMove.h"
+#include <fstream>
 
 using namespace std;
 class CreaturesList {
@@ -27,6 +28,7 @@ public:
     bool creaturesAlive();
     static void showCurrent(CreaturesList list, CreaturesList list1);
     Creature *selectCreaturePC(Creature *creature);
+    void saveGame() const;
 };
 
 

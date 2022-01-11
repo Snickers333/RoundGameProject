@@ -1,19 +1,20 @@
 #include <iostream>
 #include "Creature.h"
 #include "CreaturesList.h"
-#include "SpecialMove.h"
+
+
 CreaturesList CREATURESLIST;
 int ROUND = 1;
 
-static void play(const CreaturesList& user, const CreaturesList& enemy);
+static void play(CreaturesList& user, CreaturesList& enemy);
 
-static void playRound(CreaturesList user, CreaturesList enemy);
+static void playRound(CreaturesList &user, CreaturesList &enemy);
 
 static void computerMove(CreaturesList enemy, Creature *pc, Creature *ally);
 
 using namespace std;
 int main() {
-    //checkIfToContinue(); TODO from saved state (ROUND must be read), COLOURED LINES
+    //checkIfToContinue(); TODO from saved state (ROUND must be read), COLOURED LINES, changing creature PC
     cout<<"\t\t\t\tWelcome to the Game!"<<endl<<"List of available Creatures :"<<endl<<endl;
     cout<<CREATURESLIST;
 
@@ -24,13 +25,13 @@ int main() {
     return 0;
 }
 
-static void play(const CreaturesList& user, const CreaturesList& enemy) {
+static void play(CreaturesList& user, CreaturesList& enemy) {
     while(ROUND < 4) {
         int exit;
-        cout<<"\t\t\t\tDo you want to save the game and exit ?"<<endl<<"\t\t\t\t\t1. Yes"<<endl<<"\t\t\t\t\t2. No"<<endl<<"\t\t\t\t\tSelect :";
+        cout<<"\t\t\t\tDo you wish to save the game and exit ?"<<endl<<"\t\t\t\t\t1. Yes"<<endl<<"\t\t\t\t\t2. No"<<endl<<"\t\t\t\t\tSelect :";
         cin>>exit;
         if (exit == 1) {
-            //TODO Save Game
+            user.saveGame();
             return;
         }
 
@@ -40,7 +41,7 @@ static void play(const CreaturesList& user, const CreaturesList& enemy) {
     cout<<endl<<"\t\t\t\tCONGRATULATIONS"<<"    YOU WON"<<endl;
 }
 
-static void playRound(CreaturesList user, CreaturesList enemy) {
+static void playRound(CreaturesList &user, CreaturesList &enemy) {
     Creature *ally = user.selectCreature();
     Creature *pc = enemy.selectCreaturePC(ally);
     cout<<endl<<"\t\t\t\tYour enemy is :"<<endl<<endl;
@@ -115,4 +116,3 @@ static void computerMove(CreaturesList enemy, Creature *pc, Creature *ally) {
         }
     }
 }
-

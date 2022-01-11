@@ -3,7 +3,6 @@
 //
 
 #include "CreaturesList.h"
-
 #include <utility>
 
 CreaturesList::CreaturesList() {
@@ -156,4 +155,12 @@ void CreaturesList::showCurrent(CreaturesList user, CreaturesList enemy) {
     cout<<user<<endl;
     cout<<"\t\t\t\t\tYour Nemesis :"<<endl<<endl;
     cout<<enemy<<endl;
+}
+
+void CreaturesList::saveGame() const{
+    ofstream saveState ("savefile.txt");
+    for (auto const c : this->list) {
+        saveState<<c.getName()<<" "<<c.getStrength()<<" "<<c.getAgility()<<" "<<c.getHp()<<" "<<c.getSpecialMove().getSpecialString()<<" "<<c.getElement()<<"\n";
+    }
+    saveState.close();
 }

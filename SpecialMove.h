@@ -28,6 +28,7 @@ public:
     SpecialMove(Special special);
     friend std::ostream& operator <<(std::ostream& o, const SpecialMove& c);
     Special getSpecial();
+    std::string getSpecialString() const;
 };
 
 

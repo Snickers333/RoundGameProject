@@ -44,3 +44,25 @@ std::ostream &operator<<(std::ostream &o, const SpecialMove &c) {
 Special SpecialMove::getSpecial() {
     return special;
 }
+
+std::string SpecialMove::getSpecialString() const {
+    switch (this->special) {
+        case hpBoost:
+            return "hpBoost";
+        case agilityBoost:
+            return "agilityBoost";
+        case attackBoost:
+            return "attackBoost";
+        case tornado:
+            return "tornado";
+        case ignite:
+            return "ignite";
+        case laserBeam:
+            return "laserBeam";
+        case exhaust:
+            return "exhaust";
+        case xpBoost:
+            return "xpBoost";
+    }
+    return "std::string()";
+}

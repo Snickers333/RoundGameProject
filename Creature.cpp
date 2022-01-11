@@ -130,6 +130,7 @@ void Creature::attack(Creature &enemy, int fixed) {
     std::cout<<std::endl<<this->getName()<<" has dealt "<<(power+modifier)<<" damage to "<<enemy.getName()<<std::endl<<std::endl;
     if (!enemy.alive()) {
         enemy.setHp(0);
+        std::cout<<std::endl<<enemy.getName()<<" Has Fallen !"<<std::endl;
         this->setExp(this->getExp()+1);
     }
     this->checkLevelUp();
