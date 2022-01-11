@@ -13,6 +13,7 @@ Creature::Creature(std::string name,int strength, double agility, int HP, Specia
     this->specialMove = SpecialMove(special);
     this->EXP = 1;
     this->element = element;
+    this->cooldown = false;
 }
 
 std::ostream &operator<<(std::ostream &o, const Element &e) {
@@ -95,6 +96,14 @@ void Creature::setElement(Element element) {
     Creature::element = element;
 }
 
+bool Creature::isCooldown() const {
+    return cooldown;
+}
+
+void Creature::setCooldown(bool cooldown) {
+    Creature::cooldown = cooldown;
+}
+
 std::ostream &operator<<(std::ostream &o, const Creature &c) {
     o<<" "<<c.getName()<<"\t"<<c.getStrength()<<"\t"<<c.getAgility()<<"\t"<<c.getHp()<<"\t"<<c.getElement()<<"\t\t"<<c.getSpecialMove()<<std::endl;
     return o;
@@ -131,7 +140,7 @@ void Creature::checkLevelUp() {
 }
 
 bool Creature::specialAttack(Creature &enemy) {
-    if (this->getSpecialMove().isCooldown()) {
+    if (this->isCooldown()) {
         std::cout<<std::endl<<"This ability is on cooldown."<<std::endl;
         return true;
     }
@@ -180,6 +189,7 @@ bool Creature::specialAttack(Creature &enemy) {
             this->checkLevelUp();
             break;
     }
+    this->setCooldown(true);
     return false;
 }
 

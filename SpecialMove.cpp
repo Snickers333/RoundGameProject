@@ -30,7 +30,6 @@ SpecialMove::SpecialMove(Special special) {
         default:
             break;
     }
-    this->cooldown = false;
 }
 
 SpecialMove::SpecialMove() {
@@ -40,14 +39,6 @@ SpecialMove::SpecialMove() {
 std::ostream &operator<<(std::ostream &o, const SpecialMove &c) {
     o<<c.describtion;
     return o;
-}
-
-bool SpecialMove::isCooldown() const {
-    return cooldown;
-}
-
-void SpecialMove::setCooldown(bool cooldown) {
-    SpecialMove::cooldown = cooldown;
 }
 
 Special SpecialMove::getSpecial() {

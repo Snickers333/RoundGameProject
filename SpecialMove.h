@@ -23,14 +23,11 @@ class SpecialMove {
 private:
     Special special;
     std::string describtion;
-    bool cooldown;
 public:
     SpecialMove();
     SpecialMove(Special special);
     friend std::ostream& operator <<(std::ostream& o, const SpecialMove& c);
     Special getSpecial();
-    bool isCooldown() const;
-    void setCooldown(bool cooldown);
 };
 
 

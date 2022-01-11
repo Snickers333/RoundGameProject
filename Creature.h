@@ -25,6 +25,7 @@ private:
     SpecialMove specialMove;
     int EXP;
     Element element;
+    bool cooldown;
 public:
     Creature(std::string name, int strength, double agility, int HP, Special special, Element element);
     void attack(Creature &enemy, int fixed);
@@ -43,6 +44,8 @@ public:
     void setExp(int exp);
     Element getElement() const;
     void setElement(Element element);
+    bool isCooldown() const;
+    void setCooldown(bool cooldown);
     friend std::ostream& operator <<(std::ostream& o, const Creature& c);
     friend std::ostream& operator <<(std::ostream& o, const Element& c);
     int conflictModifier(const Creature *ally, const Creature& enemy) const;
