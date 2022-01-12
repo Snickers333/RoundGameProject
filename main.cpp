@@ -10,7 +10,7 @@ static void play(CreaturesList& user, CreaturesList& enemy);
 
 static void playRound(CreaturesList &user, CreaturesList &enemy);
 
-static void computerMove(CreaturesList enemy, Creature *pc, Creature *ally);
+static void computerMove(CreaturesList &enemy, CreaturesList &user, Creature *&pc, Creature *&ally);
 
 using namespace std;
 int main() {            //TODO from saved state (ROUND must be read), COLOURED LINES
@@ -19,7 +19,8 @@ int main() {            //TODO from saved state (ROUND must be read), COLOURED L
     cin>>choice;
     CreaturesList user;
     if (choice == 1) {
-        user.readGame();
+        ROUND = user.readGame();
+        cout<<endl<<"The round number is "<<ROUND<<endl;
     } else {
         cout << "\t\t\t\tWelcome to the Game!" << endl << "List of available Creatures :" << endl << endl;
         cout << CREATURESLIST;
@@ -37,14 +38,14 @@ static void play(CreaturesList& user, CreaturesList& enemy) {
         cout<<"\t\t\t\tDo you wish to save the game and exit ?"<<endl<<"\t\t\t\t\t1. Yes"<<endl<<"\t\t\t\t\t2. No"<<endl<<"\t\t\t\t\tSelect :";
         cin>>exit;
         if (exit == 1) {
-            user.saveGame();
+            user.saveGame(ROUND);
             return;
         }
 
         cout<<endl<<"\t\t\t\t\tRound "<<ROUND<<endl<<"\t\t\t\t\tFIGHT"<<endl;
         playRound(user, enemy);
     }
-    cout<<endl<<"\t\t\t\tCONGRATULATIONS"<<"    YOU WON"<<endl;
+    cout<<endl<<"\t\t\t\tCONGRATULATIONS !! YOU WON THE GAME !!"<<endl;
 }
 
 static void playRound(CreaturesList &user, CreaturesList &enemy) {
@@ -56,30 +57,33 @@ static void playRound(CreaturesList &user, CreaturesList &enemy) {
 
     int choice = 0;
     while (user.creaturesAlive() && enemy.creaturesAlive()) {
-        if (!ally->alive()) {
-            cout<<endl<<"Your creature has died !"<<endl;
-            ally = user.selectCreature();
-        } else if (!pc->alive()) {
-            pc = enemy.selectCreaturePC();
-        }
         if (choice != 0) {
             Creature::showCurrentChosen(ally, pc);
         }
         cout<<"\t\t\t\tYour options are :"<<endl<<"\t\t\t\t\t1. Attack"<<endl<<"\t\t\t\t\t2. Special attack"<<endl<<"\t\t\t\t\t3. Change Creature"<<endl<<"\t\t\t\t\t4. Show Creatures List"<<endl<<"\t\t\t\t\tSelect :";
         cin>>choice;
+        int result;
         switch (choice) {
             case 1:
-                ally->attack(*pc, 0);
-                computerMove(enemy, pc, ally);
+                if (ally->attack(*pc, 0)) {
+                    pc = enemy.selectCreaturePC();
+                    break;
+                }
+                computerMove(enemy, user, pc, ally);
                 break;
             case 2:
-                if (ally->specialAttack(*pc))
+                result = ally->specialAttack(*pc);
+                if (result == 1) {
                     break;
-                computerMove(enemy, pc, ally);
+                } else if (result == 2) {
+                    pc = enemy.selectCreaturePC();
+                    break;
+                }
+                computerMove(enemy, user, pc, ally);
                 break;
             case 3:
                 ally = user.selectCreature();
-                computerMove(enemy, pc, ally);
+                computerMove(enemy, user, pc, ally);
                 break;
             case 4:
                 CreaturesList::showCurrent(user, enemy);
@@ -97,29 +101,32 @@ static void playRound(CreaturesList &user, CreaturesList &enemy) {
     }
 }
 
-static void computerMove(CreaturesList enemy, Creature *pc, Creature *ally) {
+static void computerMove(CreaturesList &enemy,CreaturesList &user, Creature *&pc, Creature *&ally) {
     srand((unsigned) time(0));
     int choice;
     bool valid = true;
     while (valid) {
-        choice = (rand() % 3) + 1;
-        switch (choice) {
-            case 1:
-                pc->attack(*ally, 0);
-                valid = false;
+        if (pc->isCooldown()) {
+            choice = (rand() % 3) + 1;
+        } else {
+            choice = 1;
+        }
+        int result;
+        if (choice == 2) {
+            result = pc->specialAttack(*ally);
+            if (result == 1) {
                 break;
-            case 2:
-                if (pc->specialAttack(*ally)) {
-                    break;
-                }
-                valid = false;
-                break;
-            case 3:
-                pc = enemy.selectCreaturePC();
-                valid = false;
-                break;
-            default :
-                break;
+            } else if (result == 2) {
+                cout << endl << "Your creature has died !" << endl;
+                ally = user.selectCreature();
+            }
+            valid = false;
+        } else {
+            if (pc->attack(*ally, 0)) {
+                cout << endl << "Your creature has died !" << endl;
+                ally = user.selectCreature();
+            }
+            valid = false;
         }
     }
 }

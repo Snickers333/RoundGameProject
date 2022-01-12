@@ -28,8 +28,8 @@ private:
     bool cooldown;
 public:
     Creature(std::string name, int strength, int agility, int HP, Special special, Element element);
-    void attack(Creature &enemy, int fixed);
-    bool specialAttack(Creature &enemy);
+    bool attack(Creature &enemy, int fixed);
+    int specialAttack(Creature &enemy);
     const std::string &getName() const;
     void setName(const std::string &name);
     int getStrength() const;

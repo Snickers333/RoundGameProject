@@ -109,11 +109,11 @@ std::ostream &operator<<(std::ostream &o, const Creature &c) {
     return o;
 }
 
-void Creature::attack(Creature &enemy, int fixed) {
+bool Creature::attack(Creature &enemy, int fixed) {
     srand((unsigned) time(0));
     if (this->getAgility() > (rand() % 100)) {
-        std::cout<<"Whoops ! "<<enemy.getName()<<" has dodged "<<this->getName()<<"'s attack !"<<std::endl;
-        return;
+        std::cout<<std::endl<<"Whoops ! "<<enemy.getName()<<" has dodged "<<this->getName()<<"'s attack !"<<std::endl;
+        return false;
     }
     int power;
     if (fixed == 0){
@@ -124,7 +124,7 @@ void Creature::attack(Creature &enemy, int fixed) {
     int modifier = conflictModifier(this, enemy);
     if ((modifier + power) < 0) {
         std::cout<<std::endl<<"Your damage to this entity was too low to make any harm"<<std::endl<<std::endl;
-        return;
+        return false;
     }
     enemy.setHp(enemy.getHp()-(power+modifier));
     std::cout<<std::endl<<this->getName()<<" has dealt "<<(power+modifier)<<" damage to "<<enemy.getName()<<std::endl<<std::endl;
@@ -132,8 +132,10 @@ void Creature::attack(Creature &enemy, int fixed) {
         enemy.setHp(0);
         std::cout<<std::endl<<enemy.getName()<<" Has Fallen !"<<std::endl;
         this->setExp(this->getExp()+1);
+        this->checkLevelUp();
+        return true;
     }
-    this->checkLevelUp();
+    return false;
 }
 
 void Creature::checkLevelUp() {
@@ -145,10 +147,10 @@ void Creature::checkLevelUp() {
     }
 }
 
-bool Creature::specialAttack(Creature &enemy) {
+int Creature::specialAttack(Creature &enemy) {
     if (this->isCooldown()) {
-        std::cout<<std::endl<<this->getName()<<" : This ability is on cooldown."<<std::endl;
-        return true;
+        std::cout<<std::endl<<this->getName()<<" : Special ability is on cooldown."<<std::endl;
+        return 1;
     }
     switch (this->specialMove.getSpecial()) {
         case hpBoost:
@@ -166,7 +168,7 @@ bool Creature::specialAttack(Creature &enemy) {
         case tornado:
             if (enemy.getAgility() < 30) {
                 std::cout<<std::endl<<enemy.getName()<<" is slow enough. No need to slow him more."<<std::endl;
-                return true;
+                return 1;
             } else {
                 std::cout<<std::endl<<"The tornado slows "<<enemy.getName()<<", lowering his Agility by 20 !"<<std::endl;
                 enemy.setAgility(enemy.getAgility()-20);
@@ -174,11 +176,15 @@ bool Creature::specialAttack(Creature &enemy) {
             break;
         case ignite:
             std::cout<<std::endl<<"Black magic sets "<<enemy.getName()<<" on fire !"<<std::endl;
-            this->attack(enemy, 9);
+            if (this->attack(enemy, 9)){
+                return 2;
+            }
             break;
         case laserBeam:
             std::cout<<std::endl<<this->getName()<<"'s laser tears through "<<enemy.getName()<<" !"<<std::endl;
-            this->attack(enemy, 7);
+            if (this->attack(enemy, 7)){
+                return 2;
+            }
             break;
         case exhaust:
             if (enemy.getStrength() >= 4) {
@@ -186,7 +192,7 @@ bool Creature::specialAttack(Creature &enemy) {
                 std::cout<<std::endl<<enemy.getName()<<" is now exhausted, dealing 3 damage less !"<<std::endl;
             } else {
                 std::cout<<std::endl<<enemy.getName()<<" is too weak to be exhausted further"<<std::endl;
-                return true;
+                return 1;
             }
             break;
         case xpBoost:
@@ -196,7 +202,7 @@ bool Creature::specialAttack(Creature &enemy) {
             break;
     }
     this->setCooldown(true);
-    return false;
+    return 0;
 }
 
 int Creature::conflictModifier(const Creature *ally, const Creature &enemy) {
@@ -292,15 +298,15 @@ bool Creature::alive() {
 }
 
 Element Creature::getElementIndex(std::string element) {
-    if (element == "water") {
+    if (element == "Water") {
         return water;
-    } else if (element == "earth") {
+    } else if (element == "Earth") {
         return earth;
-    } else if (element == "wind") {
+    } else if (element == "Wind") {
         return wind;
-    } else if (element == "fire") {
+    } else if (element == "Fire") {
         return fire;
-    } else if (element == "ice") {
+    } else if (element == "Ice") {
         return ice;
     } else {
         return steel;

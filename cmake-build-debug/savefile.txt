@@ -1,7 +1,7 @@
 FastRunner
 5
 50
-6
+0
 tornado
 Wind
 Stomper
@@ -13,13 +13,13 @@ Earth
 Fire spark
 7
 20
-9
+0
 attackBoost
 Fire
 Angry Fish
 4
 10
-13
+0
 xpBoost
 Water
 FastRunner
@@ -34,3 +34,4 @@ Ice Wolf
 13
 exhaust
 Ice
+3

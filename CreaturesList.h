@@ -30,8 +30,8 @@ public:
     bool creaturesAlive();
     static void showCurrent(CreaturesList list, CreaturesList list1);
     Creature *selectCreaturePC();
-    void saveGame() const;
-    void readGame();
+    void saveGame(int round) const;
+    int readGame();
 };
 
 

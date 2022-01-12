@@ -108,10 +108,6 @@ Creature * CreaturesList::selectCreature() {
         cout << endl << this->list << endl;
         cout << "\t\t\t\tPick your fighter :";
         cin >> choice;
-        cout << endl << "\t\t\t\tYou have chosen :" << endl << endl;
-        cout << " Name" << " \t\t" << "Attack" << "\t" << "Agility" << "\t" << "Health" << "\t" << "Element"
-            << "\t\t" << "Special Move" << endl;
-        cout << list[choice - 1] << endl;
         if (list[choice-1].getHp() <= 0) {
             cout<<"Incorrect choice, this creature is already dead."<<endl;
         }
@@ -120,13 +116,13 @@ Creature * CreaturesList::selectCreature() {
 }
 
 Creature * CreaturesList::selectCreaturePC() {
-    srand((unsigned) time(0));
-    int i = 0;
-        while (!list[i].alive()) {
-            i = (rand() % 3);
+    for (int i = 0; i < 4; ++i) {
+        if (list[i].alive()) {
+            return &list[i];
         }
-    cout<<endl<<" Your enemy changed his creature to "<<endl<<list[i]<<endl;
-    return &list[i];
+    }
+    cout<<endl<<" Your enemy changed his creature ! "<<endl;
+    return &list[0];
 }
 
 bool CreaturesList::playerOrPc() {
@@ -158,15 +154,16 @@ void CreaturesList::showCurrent(CreaturesList user, CreaturesList enemy) {
     cout<<enemy<<endl;
 }
 
-void CreaturesList::saveGame() const{
+void CreaturesList::saveGame(int round) const{
     ofstream saveState ("savefile.txt");
     for (auto const c : this->list) {
         saveState<<c.getName()<<"\n"<<c.getStrength()<<"\n"<<c.getAgility()<<"\n"<<c.getHp()<<"\n"<<c.getSpecialMove().getSpecialString()<<"\n"<<c.getElement()<<"\n";
     }
+    saveState<<round;
     saveState.close();
 }
 
-void CreaturesList::readGame() {
+int CreaturesList::readGame() {
     ifstream file ("savefile.txt");
     string read;
     this->list.clear();
@@ -193,5 +190,7 @@ void CreaturesList::readGame() {
             this->list.emplace_back(name, dmg, agility, hp, special, element);
         }
     }
+    getline(file, read);
+    return stoi(read);
 }
 
