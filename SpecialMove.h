@@ -24,12 +24,18 @@ private:
     Special special;
     std::string describtion;
 public:
+    // Default constructor
     SpecialMove();
+    // Constructor which initializes special and the description associated to it
     SpecialMove(Special special);
+    // Overloading output stream operator
     friend std::ostream& operator <<(std::ostream& o, const SpecialMove& c);
+    // Getter private special field
     Special getSpecial();
+    // Special field Getter with conversion to string
     std::string getSpecialString() const;
-    static Special SpecialMove::getSpecialIndex(std::string special);
+    // Method - String conversion to Special Enum
+    static Special SpecialMove::getSpecialIndex(const std::string& special);
 };
 
 

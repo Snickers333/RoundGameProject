@@ -5,6 +5,7 @@
 #include "Creature.h"
 #include <utility>
 
+// Constructor creating object and assigning necessary fields for the Creature
 Creature::Creature(std::string name,int strength, int agility, int HP, Special special, Element element) {
     this->name = std::move(name);
     this->strength = strength;
@@ -16,6 +17,7 @@ Creature::Creature(std::string name,int strength, int agility, int HP, Special s
     this->cooldown = false;
 }
 
+// Overloading of output stream operator which outputs text representation of Element Enum
 std::ostream &operator<<(std::ostream &o, const Element &e) {
     switch (e) {
         case water:
@@ -40,75 +42,78 @@ std::ostream &operator<<(std::ostream &o, const Element &e) {
     return o;
 }
 
+// Name Getter
 const std::string &Creature::getName() const {
     return name;
 }
 
-void Creature::setName(const std::string &name) {
-    Creature::name = name;
-}
-
+// Strength Getter
 int Creature::getStrength() const {
     return strength;
 }
 
-void Creature::setStrength(int strength) {
-    Creature::strength = strength;
+// Strength Setter
+void Creature::setStrength(int str) {
+    Creature::strength = str;
 }
 
-double Creature::getAgility() const {
+// Agility Getter
+int Creature::getAgility() const {
     return agility;
 }
 
-void Creature::setAgility(double agility) {
-    Creature::agility = agility;
+// Agility Setter
+void Creature::setAgility(int ag) {
+    Creature::agility = ag;
 }
 
+// HP Getter
 int Creature::getHp() const {
     return HP;
 }
 
+// HP Setter
 void Creature::setHp(int hp) {
     HP = hp;
 }
 
+// SpecialMove Getter
 SpecialMove Creature::getSpecialMove() const {
     return specialMove;
 }
 
-void Creature::setSpecialMove(const SpecialMove &specialMove) {
-    Creature::specialMove = specialMove;
-}
-
+// Exp amount Getter
 int Creature::getExp() const {
     return EXP;
 }
 
+// Exp amount Setter
 void Creature::setExp(int exp) {
     EXP = exp;
 }
 
+// Element type Getter
 Element Creature::getElement() const {
     return element;
 }
 
-void Creature::setElement(Element element) {
-    Creature::element = element;
-}
-
+// Method that checks if Special Ability is on cooldown ( True = is on cooldown, False = is not on cooldown )
 bool Creature::isCooldown() const {
     return cooldown;
 }
 
-void Creature::setCooldown(bool cooldown) {
-    Creature::cooldown = cooldown;
+// Method that sets Special Ability cooldown
+void Creature::setCooldown(bool cd) {
+    Creature::cooldown = cd;
 }
 
+// Output stream operator overload for important Creature fields
 std::ostream &operator<<(std::ostream &o, const Creature &c) {
     o<<" "<<c.getName()<<"\t"<<c.getStrength()<<"\t"<<c.getAgility()<<"\t"<<c.getHp()<<"\t"<<c.getElement()<<"\t\t"<<c.getSpecialMove()<<std::endl;
     return o;
 }
 
+// Method that attacks enemy Creature, setting enemy Creature hp accordingly, checking if enemy Creature died and adding xp if applicable
 bool Creature::attack(Creature &enemy, int fixed) {
     srand((unsigned) time(0));
     if (this->getAgility() > (rand() % 100)) {
@@ -138,6 +143,7 @@ bool Creature::attack(Creature &enemy, int fixed) {
     return false;
 }
 
+// Checks if a Creature should be leveled up and if so - increases its Strength by 2 and HP by 3
 void Creature::checkLevelUp() {
     if (this->getExp() % 3 == 0) {
         this->setExp(this->getExp()+1);
@@ -147,6 +153,7 @@ void Creature::checkLevelUp() {
     }
 }
 
+// Uses special ability of given creature and puts its cooldown to True
 int Creature::specialAttack(Creature &enemy) {
     if (this->isCooldown()) {
         std::cout<<std::endl<<this->getName()<<" : Special ability is on cooldown."<<std::endl;
@@ -205,6 +212,7 @@ int Creature::specialAttack(Creature &enemy) {
     return 0;
 }
 
+// Method that checks if the two given Creature's Elements are conflicting with each other - Modifying damage accordingly
 int Creature::conflictModifier(const Creature *ally, const Creature &enemy) {
     switch (ally->getElement()) {
         case water:
@@ -281,6 +289,7 @@ int Creature::conflictModifier(const Creature *ally, const Creature &enemy) {
     return 0;
 }
 
+// Prints out currently chosen Creatures by user and Enemy
 void Creature::showCurrentChosen(Creature *ally, Creature *pc) {
     std::cout<<"\t\t\t\t\tYOU"<<std::endl<<std::endl;
     std::cout<<" Name"<<" \t\t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<std::endl;
@@ -290,14 +299,16 @@ void Creature::showCurrentChosen(Creature *ally, Creature *pc) {
     std::cout<<*pc<<std::endl;
 }
 
-bool Creature::alive() {
+// Method that checks if the creature is still alive
+bool Creature::alive() const {
     if (this->getHp() > 0) {
         return true;
     }
     return false;
 }
 
-Element Creature::getElementIndex(std::string element) {
+// Method that converts given string to an Element class type
+Element Creature::getElementIndex(const std::string& element) {
     if (element == "Water") {
         return water;
     } else if (element == "Earth") {

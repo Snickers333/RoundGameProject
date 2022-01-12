@@ -5,6 +5,7 @@
 #include "CreaturesList.h"
 #include <utility>
 
+// Default constructor creates list of available creatures and stores them in vector
 CreaturesList::CreaturesList() {
     list.emplace_back("Stomper", 3, 10, 18, hpBoost, earth);
     list.emplace_back("Fire spark", 7, 20, 9, attackBoost, fire);
@@ -23,10 +24,12 @@ CreaturesList::CreaturesList() {
     list.emplace_back("Swinger", 4, 20, 15, attackBoost, wind);
 }
 
+// Constructor that assigns existing Creatures vector to the field of this class
 CreaturesList::CreaturesList(std::vector<Creature> list) {
     this->list = std::move(list);
 }
 
+// Overloading output stream operator to list every Creature stored in this class
 std::ostream &operator<<(std::ostream &o, const CreaturesList &c) {
     int counter = 0;
     o<<"    "<<"Name"<<" \t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<std::endl;
@@ -41,10 +44,12 @@ std::ostream &operator<<(std::ostream &o, const CreaturesList &c) {
     return o;
 }
 
+// Method that makes a copy of existing creature stored at given index in vector
 Creature CreaturesList::getCopyCreature(int index) const{
     return list[index-1];
 }
 
+// This method helps user to select his initial creatures list at beginning of the game
 CreaturesList CreaturesList::makeUserSelection() const{
     vector<Creature> result;
 
@@ -60,6 +65,7 @@ CreaturesList CreaturesList::makeUserSelection() const{
     return result;
 }
 
+// Method that helps user to select the difficulty of enemy Creatures for the rest of the game
 void CreaturesList::setDifficulty() {
     cout<<"\t\t\t\tChoose difficulty :"<<endl<<"\t\t\t\t\t1. Easy"<<endl<<"\t\t\t\t\t2. Medium"<<endl<<"\t\t\t\t\t3. Hard"<<endl;
     int level;
@@ -91,7 +97,8 @@ void CreaturesList::setDifficulty() {
     }
 }
 
-CreaturesList CreaturesList::selectRandomEnemies() const{
+// This method returns a CreatureList of random picked enemies from the default list
+CreaturesList CreaturesList::selectRandomEnemyList() const{
     vector<Creature> result;
     int selection;
     srand((unsigned) time(0));
@@ -102,6 +109,7 @@ CreaturesList CreaturesList::selectRandomEnemies() const{
     return result;
 }
 
+// This method allows user to select currently controlled Creature
 Creature * CreaturesList::selectCreature() {
     int choice;
     do {
@@ -116,6 +124,7 @@ Creature * CreaturesList::selectCreature() {
     return &list[choice-1];
 }
 
+// This method selects another Creature controlled by the Computer
 Creature * CreaturesList::selectCreaturePC() {
     for (int i = 0; i < 4; ++i) {
         if (list[i].alive()) {
@@ -126,6 +135,7 @@ Creature * CreaturesList::selectCreaturePC() {
     return &list[0];
 }
 
+// Method that checks if any of the enemies in the list is still alive
 bool CreaturesList::creaturesAlive() {
     bool alive = false;
     for (const auto& item : list) {
@@ -136,22 +146,25 @@ bool CreaturesList::creaturesAlive() {
     return alive;
 }
 
-void CreaturesList::showCurrent(CreaturesList user, CreaturesList enemy) {
+// This method prints out currently selected Creatures by user and Enemy
+void CreaturesList::showCurrent(const CreaturesList& user, const CreaturesList& enemy){
     cout<<endl<<"\t\t\t\t\tYour team :"<<endl<<endl;
     cout<<user<<endl;
     cout<<"\t\t\t\t\tYour Nemesis :"<<endl<<endl;
     cout<<enemy<<endl;
 }
 
+// Method that saves the current game progress
 void CreaturesList::saveGame(int round) const{
     ofstream saveState ("savefile.txt");
-    for (auto const c : this->list) {
+    for (auto const& c : this->list) {
         saveState<<c.getName()<<"\n"<<c.getStrength()<<"\n"<<c.getAgility()<<"\n"<<c.getHp()<<"\n"<<c.getSpecialMove().getSpecialString()<<"\n"<<c.getElement()<<"\n";
     }
     saveState<<round;
     saveState.close();
 }
 
+// Method that loads current game progress
 int CreaturesList::readGame() {
     ifstream file ("savefile.txt");
     string read;
@@ -183,11 +196,11 @@ int CreaturesList::readGame() {
     return stoi(read);
 }
 
+// Method that refreshes all Creatures Special ability cooldown every round
 void CreaturesList::refreshCooldowns() {
     for (auto &item : this->list) {
         item.setCooldown(false);
     }
-
     cout<<endl<<"New round ! Abilities cooldowns has been reset !"<<endl;
 }
 

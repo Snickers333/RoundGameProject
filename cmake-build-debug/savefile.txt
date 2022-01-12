@@ -1,13 +1,13 @@
 Magma Cube
-16
+20
 10
-0
+106
 agilityBoost
 Fire
 Ice Wolf
 6
 30
-0
+100
 exhaust
 Ice
 Fire spark
@@ -19,7 +19,7 @@ Fire
 Freezer
 5
 10
-0
+100
 exhaust
 Ice
 IceMonster
@@ -34,4 +34,4 @@ Wind Bat
 9
 agilityBoost
 Wind
-2
+3

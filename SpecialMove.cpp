@@ -1,5 +1,6 @@
 #include "SpecialMove.h"
 
+// Depending on type of Special enum, this constructor sets special field and a description associated with it
 SpecialMove::SpecialMove(Special special) {
     this->special = special;
     switch(this->special) {
@@ -32,19 +33,20 @@ SpecialMove::SpecialMove(Special special) {
     }
 }
 
+// Default constructor in case it is needed
 SpecialMove::SpecialMove() {
     this->describtion = "Special move not specified";
 }
-
+// Overloading output stream operator which converts SpecialMove class object to description of this SpecialMove class
 std::ostream &operator<<(std::ostream &o, const SpecialMove &c) {
     o<<c.describtion;
     return o;
 }
-
+// Getter for the private special field
 Special SpecialMove::getSpecial() {
     return special;
 }
-
+// Getter for private special field with conversion to string
 std::string SpecialMove::getSpecialString() const {
     switch (this->special) {
         case hpBoost:
@@ -66,8 +68,8 @@ std::string SpecialMove::getSpecialString() const {
     }
     return "std::string()";
 }
-
-Special SpecialMove::getSpecialIndex(std::string special) {
+// Method which converts input string to Special enum
+Special SpecialMove::getSpecialIndex(const std::string& special) {
     if (special == "hpBoost") {
         return hpBoost;
     } else if (special == "agilityBoost"){

@@ -2,17 +2,25 @@
 #include "Creature.h"
 #include "CreaturesList.h"
 
-
-CreaturesList CREATURESLIST;
-int ROUND = 1;
-
 static void play(CreaturesList& user, CreaturesList& enemy);
-
 static void playRound(CreaturesList &user, CreaturesList &enemy);
-
 static void computerMove(CreaturesList &enemy, CreaturesList &user, Creature *&pc, Creature *&ally);
 
+// Default CreatureList that holds all 15 default Creatures
+CreaturesList CREATURESLIST;
+
+// Round global counter
+int ROUND = 1;
+
 using namespace std;
+
+/*
+ * Main method starts with asking user if he wants to continue from saved progress
+ * Continues with either loading saved progress or
+ * Selecting new Creatures from the default CREATURESLIST list
+ * Sets Difficulty of the game
+ * Selects random enemies for next Round
+ */
 int main() {            //TODO COLOURED LINES KOMENTARZE
     int choice;
     cout<<"Do you wish to begin where you left off ?"<<endl<<"1. Yes"<<endl<<"2. No"<<endl<<"Selection :";
@@ -27,13 +35,19 @@ int main() {            //TODO COLOURED LINES KOMENTARZE
         user = CREATURESLIST.makeUserSelection();
     }
     CREATURESLIST.setDifficulty();
-    CreaturesList enemy = CREATURESLIST.selectRandomEnemies();
+    CreaturesList enemy = CREATURESLIST.selectRandomEnemyList();
     play(user, enemy);
     return 0;
 }
 
+/*
+ * This method has a loop which will start another rounds until the ROUND counter hits 5 rounds which means the game will have 4 rounds
+ * At the beginning of every round user is asked whether he wants to save the game and exit
+ * If not - The game will continue by selecting another random enemies list for this round
+ * When the loop ends - the game will check if any of the creatures on user list is alive and if so it will print out congratulations message
+ */
 static void play(CreaturesList& user, CreaturesList& enemy) {
-    while(ROUND < 4) {
+    while(ROUND < 5) {
         int exit;
         cout<<"\t\t\t\tDo you wish to save the game and exit ?"<<endl<<"\t\t\t\t\t1. Yes"<<endl<<"\t\t\t\t\t2. No"<<endl<<"\t\t\t\t\tSelect :";
         cin>>exit;
@@ -41,7 +55,7 @@ static void play(CreaturesList& user, CreaturesList& enemy) {
             user.saveGame(ROUND);
             return;
         }
-
+        enemy = CREATURESLIST.selectRandomEnemyList();
         cout<<endl<<"\t\t\t\t\tRound "<<ROUND<<endl<<"\t\t\t\t\tFIGHT"<<endl;
         playRound(user, enemy);
     }
@@ -50,21 +64,31 @@ static void play(CreaturesList& user, CreaturesList& enemy) {
     }
 }
 
+/*
+ * This method is the core game itself
+ * In the beginning we refresh cooldowns of every Creature in user CreatureList
+ * Game begins with picking currently controlled Creatures
+ * For the duration of the round the user will be presented with options to :
+ *  1. - attack enemy
+ *  2. - use special ability
+ *  3. - change currently controlled Creature
+ *  4. - show list of user and enemy CreatureList
+ *
+ *  After every decision made (except 4) the computer moves using method computerMove();
+ *
+ *  The loop ends when either user or enemy hasn't got any Creature alive on their CreatureList
+ *  Depending on the result the game will show congratulation message or good luck message
+ */
 static void playRound(CreaturesList &user, CreaturesList &enemy) {
     if (ROUND > 1) {
         user.refreshCooldowns();
     }
     Creature *ally = user.selectCreature();
     Creature *pc = enemy.selectCreaturePC();
-    cout<<endl<<"\t\t\t\tYour enemy is :"<<endl<<endl;
-    cout<<" Name"<<" \t\t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<endl;
-    cout<<*pc<<endl;
 
     int choice = 0;
     while (user.creaturesAlive() && enemy.creaturesAlive()) {
-        if (choice != 0) {
-            Creature::showCurrentChosen(ally, pc);
-        }
+        Creature::showCurrentChosen(ally, pc);
         cout<<"\t\t\t\tYour options are :"<<endl<<"\t\t\t\t\t1. Attack"<<endl<<"\t\t\t\t\t2. Special attack"<<endl<<"\t\t\t\t\t3. Change Creature"<<endl<<"\t\t\t\t\t4. Show Creatures List"<<endl<<"\t\t\t\t\tSelect :";
         cin>>choice;
         int result;
@@ -106,18 +130,24 @@ static void playRound(CreaturesList &user, CreaturesList &enemy) {
     }
 }
 
+/*
+ * This method is used for computer answers
+ * The computer has ability to attack user or use special ability
+ * Choice is made randomly.
+ * When computer's Creature dies, another one from the list is chosen to be controlled
+ */
 static void computerMove(CreaturesList &enemy,CreaturesList &user, Creature *&pc, Creature *&ally) {
     srand((unsigned) time(0));
     int choice;
     bool valid = true;
     while (valid) {
         if (pc->isCooldown()) {
-            choice = (rand() % 3) + 1;
+            choice = rand() % 2;
         } else {
             choice = 1;
         }
         int result;
-        if (choice == 2) {
+        if (choice == 1) {
             result = pc->specialAttack(*ally);
             if (result == 1) {
                 break;
