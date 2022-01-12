@@ -26,12 +26,12 @@ public:
     void setDifficulty();
     CreaturesList selectRandomEnemies() const;
     Creature * selectCreature();
-    bool playerOrPc();
     bool creaturesAlive();
     static void showCurrent(CreaturesList list, CreaturesList list1);
     Creature *selectCreaturePC();
     void saveGame(int round) const;
     int readGame();
+    void refreshCooldowns();
 };
 
 

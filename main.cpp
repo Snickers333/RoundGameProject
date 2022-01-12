@@ -13,7 +13,7 @@ static void playRound(CreaturesList &user, CreaturesList &enemy);
 static void computerMove(CreaturesList &enemy, CreaturesList &user, Creature *&pc, Creature *&ally);
 
 using namespace std;
-int main() {            //TODO from saved state (ROUND must be read), COLOURED LINES
+int main() {            //TODO COLOURED LINES KOMENTARZE
     int choice;
     cout<<"Do you wish to begin where you left off ?"<<endl<<"1. Yes"<<endl<<"2. No"<<endl<<"Selection :";
     cin>>choice;
@@ -45,10 +45,15 @@ static void play(CreaturesList& user, CreaturesList& enemy) {
         cout<<endl<<"\t\t\t\t\tRound "<<ROUND<<endl<<"\t\t\t\t\tFIGHT"<<endl;
         playRound(user, enemy);
     }
-    cout<<endl<<"\t\t\t\tCONGRATULATIONS !! YOU WON THE GAME !!"<<endl;
+    if (user.creaturesAlive()) {
+        cout<<endl<<"\t\t\t\tCONGRATULATIONS !! YOU WON THE GAME !!"<<endl;
+    }
 }
 
 static void playRound(CreaturesList &user, CreaturesList &enemy) {
+    if (ROUND > 1) {
+        user.refreshCooldowns();
+    }
     Creature *ally = user.selectCreature();
     Creature *pc = enemy.selectCreaturePC();
     cout<<endl<<"\t\t\t\tYour enemy is :"<<endl<<endl;
@@ -118,13 +123,17 @@ static void computerMove(CreaturesList &enemy,CreaturesList &user, Creature *&pc
                 break;
             } else if (result == 2) {
                 cout << endl << "Your creature has died !" << endl;
-                ally = user.selectCreature();
+                if (user.creaturesAlive()){
+                    ally = user.selectCreature();
+                }
             }
             valid = false;
         } else {
             if (pc->attack(*ally, 0)) {
                 cout << endl << "Your creature has died !" << endl;
-                ally = user.selectCreature();
+                if (user.creaturesAlive()) {
+                    ally = user.selectCreature();
+                }
             }
             valid = false;
         }

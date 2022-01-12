@@ -108,6 +108,7 @@ Creature * CreaturesList::selectCreature() {
         cout << endl << this->list << endl;
         cout << "\t\t\t\tPick your fighter :";
         cin >> choice;
+        cout<<endl;
         if (list[choice-1].getHp() <= 0) {
             cout<<"Incorrect choice, this creature is already dead."<<endl;
         }
@@ -123,18 +124,6 @@ Creature * CreaturesList::selectCreaturePC() {
     }
     cout<<endl<<" Your enemy changed his creature ! "<<endl;
     return &list[0];
-}
-
-bool CreaturesList::playerOrPc() {
-    int counter = 0;
-    for (auto item : list) {
-        counter++;
-    }
-    if (counter == 6) {
-        return true;
-    } else {
-        return false;
-    }
 }
 
 bool CreaturesList::creaturesAlive() {
@@ -192,5 +181,13 @@ int CreaturesList::readGame() {
     }
     getline(file, read);
     return stoi(read);
+}
+
+void CreaturesList::refreshCooldowns() {
+    for (auto &item : this->list) {
+        item.setCooldown(false);
+    }
+
+    cout<<endl<<"New round ! Abilities cooldowns has been reset !"<<endl;
 }
 
