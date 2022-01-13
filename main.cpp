@@ -142,22 +142,23 @@ static void computerMove(CreaturesList &enemy,CreaturesList &user, Creature *&pc
     bool valid = true;
     while (valid) {
         if (pc->isCooldown()) {
-            choice = rand() % 2;
+            choice = 0;
         } else {
-            choice = 1;
+            choice = rand() % 2;
         }
         int result;
         if (choice == 1) {
             result = pc->specialAttack(*ally);
-            if (result == 1) {
-                break;
-            } else if (result == 2) {
+            if (result == 2) {
                 cout << endl << "Your creature has died !" << endl;
                 if (user.creaturesAlive()){
                     ally = user.selectCreature();
                 }
             }
             valid = false;
+            if (result == 1) {
+                valid = true;
+            }
         } else {
             if (pc->attack(*ally, 0)) {
                 cout << endl << "Your creature has died !" << endl;

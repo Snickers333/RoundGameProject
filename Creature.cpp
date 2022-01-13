@@ -291,7 +291,7 @@ int Creature::conflictModifier(const Creature *ally, const Creature &enemy) {
 
 // Prints out currently chosen Creatures by user and Enemy
 void Creature::showCurrentChosen(Creature *ally, Creature *pc) {
-    std::cout<<"\t\t\t\t\tYOU"<<std::endl<<std::endl;
+    std::cout<<std::endl<<"\t\t\t\t\tYOU"<<std::endl<<std::endl;
     std::cout<<" Name"<<" \t\t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<std::endl;
     std::cout<<*ally<<std::endl;
     std::cout<<"\t\t\t\t\tENEMY"<<std::endl<<std::endl;
