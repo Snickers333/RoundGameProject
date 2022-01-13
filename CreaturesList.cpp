@@ -32,73 +32,77 @@ CreaturesList::CreaturesList(std::vector<Creature> list) {
 // Overloading output stream operator to list every Creature stored in this class
 std::ostream &operator<<(std::ostream &o, const CreaturesList &c) {
     int counter = 0;
-    o<<"    "<<"Name"<<" \t"<<"Attack"<<"\t"<<"Agility"<<"\t"<<"Health"<<"\t"<<"Element"<<"\t\t"<<"Special Move"<<std::endl;
-    for (const auto& item : c.list) {
+    o << "    " << "Name" << " \t" << "Attack" << "\t" << "Agility" << "\t" << "Health" << "\t" << "Element" << "\t\t"
+      << "Special Move" << std::endl;
+    for (const auto &item: c.list) {
         counter++;
         if (counter > 9) {
-            o<<counter<<"."<<item;
+            o << counter << "." << item;
         } else {
-            o<<counter<<". "<<item;
+            o << counter << ". " << item;
         }
     }
     return o;
 }
 
 // Method that makes a copy of existing creature stored at given index in vector
-Creature CreaturesList::getCopyCreature(int index) const{
-    return list[index-1];
+Creature CreaturesList::getCopyCreature(int index) const {
+    return list[index - 1];
 }
 
 // This method helps user to select his initial creatures list at beginning of the game
-CreaturesList CreaturesList::makeUserSelection() const{
+CreaturesList CreaturesList::makeUserSelection() const {
     vector<Creature> result;
 
     int selection;
 
     for (int i = 6; i > 0; i--) {
-        cout<<endl<<"\t\t\t\tChoose your Creatures. "<<i<<" to go"<<endl;
-        cout<<"\t\t\t\t\tSelect :";
-        cin>>selection;
+
+        cout << endl << "\t\t\t\tChoose your Creatures. " << i << " to go" << endl;
+        cout << "\t\t\t\t\tSelect :";
+        cin >> selection;
         result.push_back(getCopyCreature(selection));
     }
-    cout<<endl;
+
+    cout << endl;
     return result;
 }
 
 // Method that helps user to select the difficulty of enemy Creatures for the rest of the game
 void CreaturesList::setDifficulty() {
-    cout<<"\t\t\t\tChoose difficulty :"<<endl<<"\t\t\t\t\t1. Easy"<<endl<<"\t\t\t\t\t2. Medium"<<endl<<"\t\t\t\t\t3. Hard"<<endl;
+    cout << "\t\t\t\tChoose difficulty :" << endl << "\t\t\t\t\t1. Easy" << endl << "\t\t\t\t\t2. Medium" << endl
+         << "\t\t\t\t\t3. Hard" << endl;
     int level;
-    cout<<"\t\t\t\t\tSelect :";
-    cin>>level;
+    cout << "\t\t\t\t\tSelect :";
+    cin >> level;
     double mod = 1;
     switch (level) {
         case 1:
             mod = 1;
-            cout<<endl<<"\t\t\t\t    Selected difficulty EASY"<<endl<<endl;
+            cout << endl << "\t\t\t\tSelected difficulty EASY" << endl << endl;
             break;
         case 2:
             mod = 1.3;
-            cout<<endl<<"\t\t\t\t    Selected difficulty MEDIUM"<<endl<<endl;
+            cout << endl << "\t\t\t\tSelected difficulty MEDIUM" << endl << endl;
             break;
         case 3:
             mod = 1.5;
-            cout<<endl<<"\t\t\t\t    Selected difficulty HARD"<<endl<<endl;
+            cout << endl << "\t\t\t\tSelected difficulty HARD" << endl << endl;
             break;
         default:
             break;
     }
-    for (auto &item : this->list) {
-        item.setHp(item.getHp()*mod);
+    for (auto &item: this->list) {
+        item.setHp(item.getHp() * mod);
         if (item.getElement() != wind) {
-            item.setAgility(item.getAgility()*mod);
+            item.setAgility(item.getAgility() * mod);
         }
-        item.setStrength(item.getStrength()*mod);
+        item.setStrength(item.getStrength() * mod);
     }
 }
 
 // This method returns a CreatureList of random picked enemies from the default list
-CreaturesList CreaturesList::selectRandomEnemyList() const{
+CreaturesList CreaturesList::selectRandomEnemyList() const {
     vector<Creature> result;
     int selection;
     srand((unsigned) time(0));
@@ -110,35 +114,37 @@ CreaturesList CreaturesList::selectRandomEnemyList() const{
 }
 
 // This method allows user to select currently controlled Creature
-Creature * CreaturesList::selectCreature() {
+Creature *CreaturesList::selectCreature() {
     int choice;
     do {
         cout << endl << this->list << endl;
         cout << "\t\t\t\tPick your fighter :";
         cin >> choice;
-        cout<<endl;
-        if (list[choice-1].getHp() <= 0) {
-            cout<<"Incorrect choice, this creature is already dead."<<endl;
+        cout << endl;
+        if (choice < 1 || choice > 6){
+            cout << "Incorrect choice" << endl;
+        } else if (list[choice - 1].getHp() <= 0) {
+            cout << "Incorrect choice, this creature is already dead." << endl;
         }
-    } while (list[choice-1].getHp() <= 0);
-    return &list[choice-1];
+    } while (list[choice - 1].getHp() <= 0);
+    return &list[choice - 1];
 }
 
 // This method selects another Creature controlled by the Computer
-Creature * CreaturesList::selectCreaturePC() {
+Creature *CreaturesList::selectCreaturePC() {
     for (int i = 0; i < 4; ++i) {
         if (list[i].alive()) {
             return &list[i];
         }
     }
-    cout<<endl<<" Your enemy changed his creature ! "<<endl;
+    cout << endl << " Your enemy changed his creature ! " << endl;
     return &list[0];
 }
 
 // Method that checks if any of the enemies in the list is still alive
 bool CreaturesList::creaturesAlive() {
     bool alive = false;
-    for (const auto& item : list) {
+    for (const auto &item: list) {
         if (item.getHp() > 0) {
             alive = true;
         }
@@ -147,26 +153,27 @@ bool CreaturesList::creaturesAlive() {
 }
 
 // This method prints out currently selected Creatures by user and Enemy
-void CreaturesList::showCurrent(const CreaturesList& user, const CreaturesList& enemy){
-    cout<<endl<<"\t\t\t\t\tYour team :"<<endl<<endl;
-    cout<<user<<endl;
-    cout<<"\t\t\t\t\tYour Nemesis :"<<endl<<endl;
-    cout<<enemy<<endl;
+void CreaturesList::showCurrent(const CreaturesList &user, const CreaturesList &enemy) {
+    cout << endl << "\t\t\t\t\tYour team :" << endl << endl;
+    cout << user << endl;
+    cout << "\t\t\t\t\tYour Nemesis :" << endl << endl;
+    cout << enemy << endl;
 }
 
 // Method that saves the current game progress
-void CreaturesList::saveGame(int round) const{
-    ofstream saveState ("savefile.txt");
-    for (auto const& c : this->list) {
-        saveState<<c.getName()<<"\n"<<c.getStrength()<<"\n"<<c.getAgility()<<"\n"<<c.getHp()<<"\n"<<c.getSpecialMove().getSpecialString()<<"\n"<<c.getElement()<<"\n";
+void CreaturesList::saveGame(int round) const {
+    ofstream saveState("savefile.txt");
+    for (auto const &c: this->list) {
+        saveState << c.getName() << "\n" << c.getStrength() << "\n" << c.getAgility() << "\n" << c.getHp() << "\n"
+                  << c.getSpecialMove().getSpecialString() << "\n" << c.getElement() << "\n";
     }
-    saveState<<round;
+    saveState << round;
     saveState.close();
 }
 
 // Method that loads current game progress
 int CreaturesList::readGame() {
-    ifstream file ("savefile.txt");
+    ifstream file("savefile.txt");
     string read;
     this->list.clear();
     string name;
@@ -198,9 +205,9 @@ int CreaturesList::readGame() {
 
 // Method that refreshes all Creatures Special ability cooldown every round
 void CreaturesList::refreshCooldowns() {
-    for (auto &item : this->list) {
+    for (auto &item: this->list) {
         item.setCooldown(false);
     }
-    cout<<endl<<"New round ! Abilities cooldowns has been reset !"<<endl;
+    cout << endl << "New round ! Abilities cooldowns has been reset !" << endl;
 }
 

@@ -2,8 +2,10 @@
 #include "Creature.h"
 #include "CreaturesList.h"
 
-static void play(CreaturesList& user, CreaturesList& enemy);
+static void play(CreaturesList &user, CreaturesList &enemy);
+
 static void playRound(CreaturesList &user, CreaturesList &enemy);
+
 static void computerMove(CreaturesList &enemy, CreaturesList &user, Creature *&pc, Creature *&ally);
 
 // Default CreatureList that holds all 15 default Creatures
@@ -21,16 +23,18 @@ using namespace std;
  * Sets Difficulty of the game
  * Selects random enemies for next Round
  */
-int main() {            //TODO COLOURED LINES KOMENTARZE
+int main() {
     int choice;
-    cout<<"Do you wish to begin where you left off ?"<<endl<<"1. Yes"<<endl<<"2. No"<<endl<<"Selection :";
-    cin>>choice;
+    cout << "\t\t\t\tDo you wish to begin where you left off ?" << endl << "\t\t\t\t\t1. Yes" << endl
+         << "\t\t\t\t\t2. No" << endl << "\t\t\t\t\tSelection :";
+    cin >> choice;
     CreaturesList user;
     if (choice == 1) {
         ROUND = user.readGame();
-        cout<<endl<<"The round number is "<<ROUND<<endl;
+        cout << endl << "\t\t\t\tThe round number is " << ROUND << endl << endl;
     } else {
-        cout << "\t\t\t\tWelcome to the Game!" << endl << "List of available Creatures :" << endl << endl;
+        cout << endl << "\t\t\t\tWelcome to the Game!" << endl << endl << "List of available Creatures :" << endl
+             << endl;
         cout << CREATURESLIST;
         user = CREATURESLIST.makeUserSelection();
     }
@@ -46,21 +50,22 @@ int main() {            //TODO COLOURED LINES KOMENTARZE
  * If not - The game will continue by selecting another random enemies list for this round
  * When the loop ends - the game will check if any of the creatures on user list is alive and if so it will print out congratulations message
  */
-static void play(CreaturesList& user, CreaturesList& enemy) {
-    while(ROUND < 5) {
+static void play(CreaturesList &user, CreaturesList &enemy) {
+    while (ROUND < 5) {
         int exit;
-        cout<<"\t\t\t\tDo you wish to save the game and exit ?"<<endl<<"\t\t\t\t\t1. Yes"<<endl<<"\t\t\t\t\t2. No"<<endl<<"\t\t\t\t\tSelect :";
-        cin>>exit;
+        cout << "\t\t\t\tDo you wish to save the game and exit ?" << endl << "\t\t\t\t\t1. Yes" << endl
+             << "\t\t\t\t\t2. No" << endl << "\t\t\t\t\tSelect :";
+        cin >> exit;
         if (exit == 1) {
             user.saveGame(ROUND);
             return;
         }
         enemy = CREATURESLIST.selectRandomEnemyList();
-        cout<<endl<<"\t\t\t\t\tRound "<<ROUND<<endl<<"\t\t\t\t\tFIGHT"<<endl;
+        cout << endl << "\t\t\t\t\tRound " << ROUND << endl << "\t\t\t\t\tFIGHT" << endl;
         playRound(user, enemy);
     }
     if (user.creaturesAlive()) {
-        cout<<endl<<"\t\t\t\tCONGRATULATIONS !! YOU WON THE GAME !!"<<endl;
+        cout << endl << "\t\t\t\tCONGRATULATIONS !! YOU WON THE GAME !!" << endl;
     }
 }
 
@@ -89,8 +94,10 @@ static void playRound(CreaturesList &user, CreaturesList &enemy) {
     int choice = 0;
     while (user.creaturesAlive() && enemy.creaturesAlive()) {
         Creature::showCurrentChosen(ally, pc);
-        cout<<"\t\t\t\tYour options are :"<<endl<<"\t\t\t\t\t1. Attack"<<endl<<"\t\t\t\t\t2. Special attack"<<endl<<"\t\t\t\t\t3. Change Creature"<<endl<<"\t\t\t\t\t4. Show Creatures List"<<endl<<"\t\t\t\t\tSelect :";
-        cin>>choice;
+        cout << "\t\t\t\tYour options are :" << endl << "\t\t\t\t\t1. Attack" << endl << "\t\t\t\t\t2. Special attack"
+             << endl << "\t\t\t\t\t3. Change Creature" << endl << "\t\t\t\t\t4. Show Creatures List" << endl
+             << "\t\t\t\t\tSelect :";
+        cin >> choice;
         int result;
         switch (choice) {
             case 1:
@@ -118,14 +125,14 @@ static void playRound(CreaturesList &user, CreaturesList &enemy) {
                 CreaturesList::showCurrent(user, enemy);
                 break;
             default :
-                cout<<"Make a choice in range"<<endl;
+                cout << "Make a choice in range" << endl;
                 break;
         }
     }
     if (!enemy.creaturesAlive()) {
-        cout<<"\t\t\t\t\tNice Job !"<<endl<<"\t\t\t\tYou won the "<<ROUND++<<" round!"<<endl<<endl;
+        cout << "\t\t\t\t\tNice Job !" << endl << "\t\t\t\tYou won the " << ROUND++ << " round!" << endl << endl;
     } else {
-        cout<<"\t\t\t\t\tYou Lost"<<endl<<"\t\t\t\tGood luck next time!"<<endl<<endl;
+        cout << "\t\t\t\t\tYou Lost" << endl << "\t\t\t\tGood luck next time!" << endl << endl;
         ROUND = 10;
     }
 }
@@ -136,7 +143,7 @@ static void playRound(CreaturesList &user, CreaturesList &enemy) {
  * Choice is made randomly.
  * When computer's Creature dies, another one from the list is chosen to be controlled
  */
-static void computerMove(CreaturesList &enemy,CreaturesList &user, Creature *&pc, Creature *&ally) {
+static void computerMove(CreaturesList &enemy, CreaturesList &user, Creature *&pc, Creature *&ally) {
     srand((unsigned) time(0));
     int choice;
     bool valid = true;
@@ -151,7 +158,7 @@ static void computerMove(CreaturesList &enemy,CreaturesList &user, Creature *&pc
             result = pc->specialAttack(*ally);
             if (result == 2) {
                 cout << endl << "Your creature has died !" << endl;
-                if (user.creaturesAlive()){
+                if (user.creaturesAlive()) {
                     ally = user.selectCreature();
                 }
             }

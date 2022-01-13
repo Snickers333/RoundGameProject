@@ -3,7 +3,7 @@
 // Depending on type of Special enum, this constructor sets special field and a description associated with it
 SpecialMove::SpecialMove(Special special) {
     this->special = special;
-    switch(this->special) {
+    switch (this->special) {
         case attackBoost:
             this->describtion = "Attack Boost : Boosts your attack damage by 2";
             break;
@@ -37,15 +37,18 @@ SpecialMove::SpecialMove(Special special) {
 SpecialMove::SpecialMove() {
     this->describtion = "Special move not specified";
 }
+
 // Overloading output stream operator which converts SpecialMove class object to description of this SpecialMove class
 std::ostream &operator<<(std::ostream &o, const SpecialMove &c) {
-    o<<c.describtion;
+    o << c.describtion;
     return o;
 }
+
 // Getter for the private special field
 Special SpecialMove::getSpecial() {
     return special;
 }
+
 // Getter for private special field with conversion to string
 std::string SpecialMove::getSpecialString() const {
     switch (this->special) {
@@ -68,21 +71,22 @@ std::string SpecialMove::getSpecialString() const {
     }
     return "std::string()";
 }
+
 // Method which converts input string to Special enum
-Special SpecialMove::getSpecialIndex(const std::string& special) {
+Special SpecialMove::getSpecialIndex(const std::string &special) {
     if (special == "hpBoost") {
         return hpBoost;
-    } else if (special == "agilityBoost"){
+    } else if (special == "agilityBoost") {
         return agilityBoost;
-    } else if (special == "attackBoost"){
+    } else if (special == "attackBoost") {
         return attackBoost;
-    } else if (special == "tornado"){
+    } else if (special == "tornado") {
         return tornado;
-    } else if (special == "ignite"){
+    } else if (special == "ignite") {
         return ignite;
-    } else if (special == "laserBeam"){
+    } else if (special == "laserBeam") {
         return laserBeam;
-    } else if (special == "exhaust"){
+    } else if (special == "exhaust") {
         return exhaust;
     } else {
         return xpBoost;
