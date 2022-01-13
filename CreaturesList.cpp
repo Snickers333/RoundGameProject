@@ -53,18 +53,21 @@ Creature CreaturesList::getCopyCreature(int index) const {
 // This method helps user to select his initial creatures list at beginning of the game
 CreaturesList CreaturesList::makeUserSelection() const {
     vector<Creature> result;
-
     int selection;
-
-    for (int i = 6; i > 0; i--) {
-
-        cout << endl << "\t\t\t\tChoose your Creatures. " << i << " to go" << endl;
+    while (result.size() < 6) {
+        cout << "\t\t\t\tWelcome to the Game!" << endl << endl << "List of available Creatures :" << endl
+             << endl;
+        cout<<this->list<<endl;
+        cout << endl << "\t\t\t\tChoose your Creatures. " << 6 - result.size() << " to go" << endl;
         cout << "\t\t\t\t\tSelect :";
         cin >> selection;
-        result.push_back(getCopyCreature(selection));
+        if (selection > 0 && selection < 16) {
+            result.push_back(getCopyCreature(selection));
+        } else {
+            cout<<endl<<"Incorrect choice, try again"<<endl;
+        }
+        system("CLS");
     }
-
-    cout << endl;
     return result;
 }
 
@@ -76,18 +79,19 @@ void CreaturesList::setDifficulty() {
     cout << "\t\t\t\t\tSelect :";
     cin >> level;
     double mod = 1;
+    system("CLS");
     switch (level) {
         case 1:
             mod = 1;
-            cout << endl << "\t\t\t\tSelected difficulty EASY" << endl << endl;
+            cout << "\t\t\t\tSelected difficulty EASY" << endl << endl;
             break;
         case 2:
             mod = 1.3;
-            cout << endl << "\t\t\t\tSelected difficulty MEDIUM" << endl << endl;
+            cout << "\t\t\t\tSelected difficulty MEDIUM" << endl << endl;
             break;
         case 3:
             mod = 1.5;
-            cout << endl << "\t\t\t\tSelected difficulty HARD" << endl << endl;
+            cout << "\t\t\t\tSelected difficulty HARD" << endl << endl;
             break;
         default:
             break;
@@ -120,13 +124,15 @@ Creature *CreaturesList::selectCreature() {
         cout << endl << this->list << endl;
         cout << "\t\t\t\tPick your fighter :";
         cin >> choice;
-        cout << endl;
         if (choice < 1 || choice > 6){
+            system("CLS");
             cout << "Incorrect choice" << endl;
         } else if (list[choice - 1].getHp() <= 0) {
+            system("CLS");
             cout << "Incorrect choice, this creature is already dead." << endl;
         }
-    } while (list[choice - 1].getHp() <= 0);
+    } while ((choice < 1 || choice > 6) || list[choice - 1].getHp() <= 0);
+    system("CLS");
     return &list[choice - 1];
 }
 
@@ -154,7 +160,7 @@ bool CreaturesList::creaturesAlive() {
 
 // This method prints out currently selected Creatures by user and Enemy
 void CreaturesList::showCurrent(const CreaturesList &user, const CreaturesList &enemy) {
-    cout << endl << "\t\t\t\t\tYour team :" << endl << endl;
+    cout << "\t\t\t\t\tYour team :" << endl << endl;
     cout << user << endl;
     cout << "\t\t\t\t\tYour Nemesis :" << endl << endl;
     cout << enemy << endl;

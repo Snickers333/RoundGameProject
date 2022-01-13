@@ -119,7 +119,7 @@ bool Creature::attack(Creature &enemy, int fixed) {
     srand((unsigned) time(0));
     if (this->getAgility() > (rand() % 100)) {
         std::cout << std::endl << "Whoops ! " << enemy.getName() << " has dodged " << this->getName() << "'s attack !"
-                  << std::endl;
+                  << std::endl << std::endl;
         return false;
     }
     int power;
@@ -138,7 +138,7 @@ bool Creature::attack(Creature &enemy, int fixed) {
               << std::endl << std::endl;
     if (!enemy.alive()) {
         enemy.setHp(0);
-        std::cout << std::endl << enemy.getName() << " Has Fallen !" << std::endl;
+        std::cout << std::endl << enemy.getName() << " Has Fallen !" << std::endl << std::endl;
         this->setExp(this->getExp() + 1);
         this->checkLevelUp();
         return true;
@@ -152,50 +152,50 @@ void Creature::checkLevelUp() {
         this->setExp(this->getExp() + 1);
         this->setHp(this->getHp() + 3);
         this->setStrength(this->getStrength() + 2);
-        std::cout << std::endl << this->getName() << " Has Just Leveled UP !" << std::endl;
+        std::cout << std::endl << this->getName() << " Has Just Leveled UP !" << std::endl << std::endl;
     }
 }
 
 // Uses special ability of given creature and puts its cooldown to True
 int Creature::specialAttack(Creature &enemy) {
     if (this->isCooldown()) {
-        std::cout << std::endl << this->getName() << " : Special ability is on cooldown." << std::endl;
+        std::cout << std::endl << this->getName() << " : Special ability is on cooldown." << std::endl << std::endl;
         return 1;
     }
     switch (this->specialMove.getSpecial()) {
         case hpBoost:
-            std::cout << std::endl << this->getName() << " ate a lot, resulting in HP increased by 5 !" << std::endl;
+            std::cout << std::endl << this->getName() << " ate a lot, resulting in HP increased by 5 !" << std::endl << std::endl;
             this->setHp(this->getHp() + 5);
             break;
         case agilityBoost:
             std::cout << std::endl << this->getName()
-                      << " became quicker and far less noticeable. Agility has increased by 10 !" << std::endl;
+                      << " became quicker and far less noticeable. Agility has increased by 10 !" << std::endl << std::endl;
             this->setAgility(this->getAgility() + 10);
             break;
         case attackBoost:
             std::cout << std::endl << this->getName() << " is growing bigger and stronger. Attack has increased by 3 !"
-                      << std::endl;
+                      << std::endl << std::endl;
             this->setStrength(this->getStrength() + 3);
             break;
         case tornado:
             if (enemy.getAgility() < 30) {
-                std::cout << std::endl << enemy.getName() << " is slow enough. No need to slow him more." << std::endl;
+                std::cout << std::endl << enemy.getName() << " is slow enough. No need to slow him more." << std::endl << std::endl;
                 return 1;
             } else {
                 std::cout << std::endl << "The tornado slows " << enemy.getName() << ", lowering his Agility by 20 !"
-                          << std::endl;
+                          << std::endl << std::endl;
                 enemy.setAgility(enemy.getAgility() - 20);
             }
             break;
         case ignite:
-            std::cout << std::endl << "Black magic sets " << enemy.getName() << " on fire !" << std::endl;
+            std::cout << std::endl << "Black magic sets " << enemy.getName() << " on fire !" << std::endl << std::endl;
             if (this->attack(enemy, 9)) {
                 return 2;
             }
             break;
         case laserBeam:
             std::cout << std::endl << this->getName() << "'s laser tears through " << enemy.getName() << " !"
-                      << std::endl;
+                      << std::endl << std::endl;
             if (this->attack(enemy, 7)) {
                 return 2;
             }
@@ -203,15 +203,15 @@ int Creature::specialAttack(Creature &enemy) {
         case exhaust:
             if (enemy.getStrength() >= 4) {
                 enemy.setStrength(enemy.getStrength() - 3);
-                std::cout << std::endl << enemy.getName() << " is now exhausted, dealing 3 damage less !" << std::endl;
+                std::cout << std::endl << enemy.getName() << " is now exhausted, dealing 3 damage less !" << std::endl << std::endl;
             } else {
-                std::cout << std::endl << enemy.getName() << " is too weak to be exhausted further" << std::endl;
+                std::cout << std::endl << enemy.getName() << " is too weak to be exhausted further" << std::endl << std::endl;
                 return 1;
             }
             break;
         case xpBoost:
             this->setExp(this->getExp() + 1);
-            std::cout << std::endl << "XP has been increased !" << std::endl;
+            std::cout << std::endl << "XP has been increased !" << std::endl << std::endl;
             this->checkLevelUp();
             break;
     }
@@ -298,7 +298,7 @@ int Creature::conflictModifier(const Creature *ally, const Creature &enemy) {
 
 // Prints out currently chosen Creatures by user and Enemy
 void Creature::showCurrentChosen(Creature *ally, Creature *pc) {
-    std::cout << std::endl << "\t\t\t\t\tYOU" << std::endl << std::endl;
+    std::cout <<  "\t\t\t\t\tYOU" << std::endl << std::endl;
     std::cout << " Name" << " \t\t" << "Attack" << "\t" << "Agility" << "\t" << "Health" << "\t" << "Element" << "\t\t"
               << "Special Move" << std::endl;
     std::cout << *ally << std::endl;

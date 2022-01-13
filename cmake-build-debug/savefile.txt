@@ -1,37 +1,37 @@
-Magma Cube
+Swinger
+4
 20
-10
-106
-agilityBoost
-Fire
-Ice Wolf
+15
+attackBoost
+Wind
+FastRunner
+5
+50
 6
-30
-100
-exhaust
-Ice
+tornado
+Wind
 Fire spark
 7
 20
-0
+9
 attackBoost
 Fire
-Freezer
-5
+Stomper
+3
 10
-100
+18
+hpBoost
+Earth
+Ice Wolf
+6
+30
+13
 exhaust
 Ice
-IceMonster
-6
-20
-0
-laserBeam
-Ice
-Wind Bat
-5
-40
-9
-agilityBoost
-Wind
-3
+Angry Fish
+4
+10
+13
+xpBoost
+Water
+4

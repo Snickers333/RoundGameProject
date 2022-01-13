@@ -29,13 +29,12 @@ int main() {
          << "\t\t\t\t\t2. No" << endl << "\t\t\t\t\tSelection :";
     cin >> choice;
     CreaturesList user;
+    system("CLS");
     if (choice == 1) {
         ROUND = user.readGame();
+        cout << "\t\t\t\tGame Loaded " << endl;
         cout << endl << "\t\t\t\tThe round number is " << ROUND << endl << endl;
     } else {
-        cout << endl << "\t\t\t\tWelcome to the Game!" << endl << endl << "List of available Creatures :" << endl
-             << endl;
-        cout << CREATURESLIST;
         user = CREATURESLIST.makeUserSelection();
     }
     CREATURESLIST.setDifficulty();
@@ -60,12 +59,14 @@ static void play(CreaturesList &user, CreaturesList &enemy) {
             user.saveGame(ROUND);
             return;
         }
+        system("CLS");
         enemy = CREATURESLIST.selectRandomEnemyList();
-        cout << endl << "\t\t\t\t\tRound " << ROUND << endl << "\t\t\t\t\tFIGHT" << endl;
+        cout << "\t\t\t\t\tRound " << ROUND << endl << "\t\t\t\t\tFIGHT" << endl;
         playRound(user, enemy);
     }
     if (user.creaturesAlive()) {
-        cout << endl << "\t\t\t\tCONGRATULATIONS !! YOU WON THE GAME !!" << endl;
+        cout << endl << "\t\t\tCONGRATULATIONS !! YOU WON THE GAME !!" << endl;
+        system("pause");
     }
 }
 
@@ -98,6 +99,7 @@ static void playRound(CreaturesList &user, CreaturesList &enemy) {
              << endl << "\t\t\t\t\t3. Change Creature" << endl << "\t\t\t\t\t4. Show Creatures List" << endl
              << "\t\t\t\t\tSelect :";
         cin >> choice;
+        system("CLS");
         int result;
         switch (choice) {
             case 1:
@@ -125,15 +127,18 @@ static void playRound(CreaturesList &user, CreaturesList &enemy) {
                 CreaturesList::showCurrent(user, enemy);
                 break;
             default :
+                system("CLS");
                 cout << "Make a choice in range" << endl;
                 break;
         }
     }
+    system("CLS");
     if (!enemy.creaturesAlive()) {
         cout << "\t\t\t\t\tNice Job !" << endl << "\t\t\t\tYou won the " << ROUND++ << " round!" << endl << endl;
     } else {
         cout << "\t\t\t\t\tYou Lost" << endl << "\t\t\t\tGood luck next time!" << endl << endl;
         ROUND = 10;
+        system("pause");
     }
 }
 

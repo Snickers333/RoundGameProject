@@ -5,7 +5,7 @@ SpecialMove::SpecialMove(Special special) {
     this->special = special;
     switch (this->special) {
         case attackBoost:
-            this->describtion = "Attack Boost : Boosts your attack damage by 2";
+            this->describtion = "Attack Boost : Boosts your attack damage by 3";
             break;
         case hpBoost:
             this->describtion = "HP Boost : Boosts your health by 5";
