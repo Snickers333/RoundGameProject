@@ -1,0 +1,37 @@
+Swinger
+4
+20
+15
+attackBoost
+Wind
+FastRunner
+5
+50
+6
+tornado
+Wind
+Fire spark
+7
+20
+9
+attackBoost
+Fire
+Stomper
+3
+10
+18
+hpBoost
+Earth
+Ice Wolf
+6
+30
+13
+exhaust
+Ice
+Angry Fish
+4
+10
+13
+xpBoost
+Water
+4
